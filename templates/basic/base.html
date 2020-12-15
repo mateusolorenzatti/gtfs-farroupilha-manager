@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Título -->
+    <title>GTFS Farroupilha</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+
+    <!-- Stylesheet -->
+    <link href="{% static 'css/halfmoon-variables.min.css' %}" rel="stylesheet" />
+    
+    <!-- Awesome Icons -->
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+
+</head>
+
+<body data-set-preferred-mode-onload="true" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+    <div class="page-wrapper with-navbar with-sidebar" data-sidebar-hidden="hidden">
+
+        {% include 'basic/partials/_navbar.html' %}
+        {% include 'basic/partials/_sidebar.html' %}
+        
+        <div class="content-wrapper">
+            {% block content %} {% endblock %}
+        </div>
+    
+    </div>
+        
+        <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    
+    <!-- Halfmoon JS -->
+    <script src="{% static 'js/halfmoon.min.js' %}"></script>
+</body>
+
+</html>
