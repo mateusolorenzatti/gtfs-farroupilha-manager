@@ -1,29 +1,42 @@
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu">
-      <!-- Sidebar brand -->
-      <a href="#" class="sidebar-brand">
-        <img src="..." alt="...">
-        Brand
+      
+      {% if user.id %}
+      <h5 class="sidebar-title"> Acesso </h5>
+      <div class="sidebar-divider"></div>
+      <a href="/logout" class="sidebar-link"> 
+        <i class="fa fa-sign-out mr-2" aria-hidden="true"></i> 
+        Logout 
       </a>
-      <!-- Sidebar content with the search box -->
-      <div class="sidebar-content">
-        <input type="text" class="form-control" placeholder="Search">
-        <div class="mt-10 font-size-12">
-          <!-- mt-10 = margin-top: 1rem (10px), font-size-12 = font-size: 1.2rem (12px) -->
-          Press <kbd>/</kbd> to focus
-        </div>
-      </div>
-      <!-- Sidebar links and titles -->
-      <h5 class="sidebar-title">Getting started</h5>
+      <!-- <a href="#" class="sidebar-link">CLI commands</a> -->
+
+      {% else %}
+      <h5 class="sidebar-title"> Acesso </h5>
       <div class="sidebar-divider"></div>
-      <a href="#" class="sidebar-link active">Installation</a>
-      <a href="#" class="sidebar-link">CLI commands</a>
+      <a href="/login" class="sidebar-link"> 
+        <i class="fa fa-sign-in mr-2" aria-hidden="true"></i> 
+        Login 
+      </a>
+
+      <a href="/admin" class="sidebar-link"> 
+        <i class="fa fa-shield mr-2" aria-hidden="true"></i> 
+        Admin Django 
+      </a>
+      {% endif %}
+      
       <br />
-      <h5 class="sidebar-title">Components</h5>
+
+      <h5 class="sidebar-title">Sobre</h5>
       <div class="sidebar-divider"></div>
-      <a href="#" class="sidebar-link">File explorer</a>
-      <a href="#" class="sidebar-link">Spreadsheet</a>
-      <a href="#" class="sidebar-link">Map</a>
-      <a href="#" class="sidebar-link">Messenger</a>
+      <a href="https://www.feitonabiblioteca.org/bybus?lang=pt" target="_blank" rel="noopener noreferrer" class="sidebar-link"> 
+        <i class="fa fa-bus mr-2" aria-hidden="true"></i> 
+        Projeto ByBus
+      </a>
+      
+      <a href="https://github.com/mateusolorenzatti/gtfs-farroupilha-manager" target="_blank" rel="noopener noreferrer" class="sidebar-link">
+        <i class="fa fa-github mr-2" aria-hidden="true"></i> 
+        Projeto no Github
+      </a>
+
     </div>
   </div>

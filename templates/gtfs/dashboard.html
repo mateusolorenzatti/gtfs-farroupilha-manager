@@ -1,0 +1,82 @@
+{% extends 'basic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    <p class=""> Bem vindo(a), {{ user.first_name }} {{ user.last_name }} </p>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Agências
+                </p>
+                <h1>
+                    {{ count.agency }}
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Rotas
+                </p>
+                <h1>
+                    {{ count.routes }}
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Trips
+                </p>
+                <h1>
+                    {{ count.trips }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Formatos
+                </p>
+                <h1>
+                    {{ count.shapes }}
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Paradas
+                </p>
+                <h1>
+                    {{ count.stops }}
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 text-center p-5">
+            <div class="alert alert-primary border-top-0 border-left-0 border-right-0">
+                <p class="card-title">
+                    Paradas - Hora
+                </p>
+                <h1>
+                    {{ count.stop_times }}
+                </h1>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

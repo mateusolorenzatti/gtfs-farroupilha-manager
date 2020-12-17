@@ -1,6 +1,6 @@
-{% load static %}
 
-<nav class="navbar">
+
+<nav class="navbar bg-success-dark">
   <div class="navbar-content">
     <button class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
       <i class="fa fa-bars" aria-hidden="true"></i>
@@ -9,6 +9,8 @@
   </div>
   <!-- Navbar brand -->
   <a href="#" class="navbar-brand">
+    {% load static %}
+
     <img src="{% static 'img/favicon.ico' %}" alt="...">
     GTFS Farroupilha
   </a>
