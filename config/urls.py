@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', include('apps.gtfs.urls')),
+    path('', include('apps.gtfs.urls'), name='gtfs'),
+    path('routes/', include('apps.routes.urls'), name='routes'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

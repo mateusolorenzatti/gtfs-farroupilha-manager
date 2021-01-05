@@ -18,6 +18,9 @@ def home(request):
 
 def login(request):
 
+    if request.user.id:
+        return redirect('dashboard')
+
     if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
