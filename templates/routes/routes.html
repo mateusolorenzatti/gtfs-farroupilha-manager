@@ -5,14 +5,21 @@
 <div class="container">
 
     <div class="mt-5">
-        <h5 class="float-left"> Rotas </h5>
-        
-        <a class="btn btn-danger float-right mt-5" href="{% url 'dashboard' %}">
-            Voltar
-        </a>
-
+        <div class="content mw-full">
+            <form action="{% url 'routes:index' %}" method="GET" class="form-inline">
+                
+                <label> Rotas </label>
+                
+                <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control" placeholder="Filtrar" name="q">
+                
+                <input type="submit" class="btn btn-primary" value="Aplicar">
+                
+                <a class="btn btn-danger float-right" href="{% url 'dashboard' %}">
+                    Voltar
+                </a>
+            </form>
+        </div>
     </div>
-    
 
     {% include 'routes/partials/_table.html' %}
 

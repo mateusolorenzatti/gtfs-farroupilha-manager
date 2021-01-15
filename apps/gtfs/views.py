@@ -55,6 +55,8 @@ def dashboard(request):
 
     context['count']['agency'] = Agency.objects.all().count()
     context['count']['routes'] = Routes.objects.all().count()
+    context['routes'] = Routes.objects.all()[:10]
+
     context['count']['shapes'] = Shapes.objects.values('shape_id').distinct().count()
     context['count']['stop_times'] = StopTimes.objects.all().count()
     context['count']['stops'] = Stops.objects.all().count()
