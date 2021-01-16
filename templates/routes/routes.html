@@ -10,8 +10,12 @@
                 
                 <label> Rotas </label>
                 
-                <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control" placeholder="Filtrar" name="q">
+                <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control" placeholder="Filtrar" name="q" id="input">
                 
+                <a class="btn float-right" onclick="document.getElementById('input').value=''">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </a>
+
                 <input type="submit" class="btn btn-primary" value="Aplicar">
                 
                 <a class="btn btn-danger float-right" href="{% url 'dashboard' %}">
