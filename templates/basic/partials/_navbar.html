@@ -1,18 +1,19 @@
-<nav class="navbar bg-success-dark">
+<nav class="navbar bg-success">
+
   <div class="navbar-content">
-    <button class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
+    <div class="btn text-white btn-success" type="button" onclick="halfmoon.toggleSidebar()">
       <i class="fa fa-bars" aria-hidden="true"></i>
       <span class="sr-only">Toggle sidebar</span>
-    </button>
+    </div>
   </div>
   <!-- Navbar brand -->
   {% load static %}
   
   {% if user.id %}
-    <a href="{% url 'dashboard' %}" class="navbar-brand">
+    <a href="{% url 'dashboard' %}" class="navbar-brand text-white">
   
   {% else %}
-    <a href="{% url 'home' %}" class="navbar-brand">
+    <a href="{% url 'home' %}" class="navbar-brand text-white">
   
   {% endif %}
 
@@ -25,7 +26,7 @@
     {% if user.id %}
 
     <li class="nav-item dropdown with-arrow">
-      <a class="nav-link" data-toggle="dropdown" id="nav-link-dropdown-toggle">
+      <a class="nav-link text-white" data-toggle="dropdown" id="nav-link-dropdown-toggle">
         {{ user.first_name }}
         <i class="fa fa-angle-down ml-5" aria-hidden="true"></i> <!-- ml-5= margin-left: 0.5rem (5px) -->
       </a>
