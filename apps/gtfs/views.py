@@ -62,6 +62,8 @@ def dashboard(request):
     context['count']['stops'] = Stops.objects.all().count()
     context['count']['trips'] = Trips.objects.all().count()
 
+    context['title'] = 'Dashboard'
+
     return render(request,'gtfs/dashboard.html', context)
 
 

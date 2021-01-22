@@ -6,9 +6,10 @@
 
     <div class="mt-5">
         <div class="content mw-full">
-            <form action="{% url 'routes:index' %}" method="GET" class="form-inline">
-                
-                <label> Rotas </label>
+
+            {% include 'basic/partials/_header.html' %}
+
+            <form action="{% url 'routes:index' %}" method="GET" class="form-inline">    
                 
                 <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control" placeholder="Filtrar" name="q" id="input">
                 
@@ -17,17 +18,18 @@
                 </a>
 
                 <input type="submit" class="btn btn-primary" value="Aplicar">
-                
-                <a class="btn btn-danger float-right" href="{% url 'dashboard' %}">
-                    Voltar
-                </a>
             </form>
         </div>
     </div>
 
+    {% include 'routes/partials/_pagination.html' %}
+
     {% include 'routes/partials/_table.html' %}
 
     {% include 'routes/partials/_pagination.html' %}
+
+    <br>
+    <br>
 
 </div>
 

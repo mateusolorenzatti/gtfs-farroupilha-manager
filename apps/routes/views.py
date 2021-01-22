@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from  django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.shortcuts import get_object_or_404
 
 import unidecode
 
@@ -24,8 +25,19 @@ def index(request):
     rotas_pag = paginator.get_page(page)
 
     context = {
+        'title' : 'Rotas',
         'routes' : rotas_pag,
         'query': query
     }
 
     return render(request,'routes/routes.html', context)
+
+def route_detail(request, route_id):
+    route = get_object_or_404(Routes, route_id=route_id)
+
+    context = {
+        'title' : 'Rota {}'.format(route.route_id),
+        'route' : route,
+    }
+
+    return render(request,'routes/detail/route_detail.html', context)

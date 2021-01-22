@@ -1,0 +1,28 @@
+<p> Informações da Rota: </p>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th> <b> Route ID </b> </th>
+            <td> {{ route.route_id }} </td>
+        </tr>
+        <tr>
+            <th> <b> Referência </b> </th>
+            <td> {{ route.route_short_name }} </td>
+        </tr>
+        <tr>
+            <th> <b> Descrição </b> </th>
+            <td> {{ route.route_long_name }} </td>
+        </tr>
+        <tr>
+            <th> <b> Tipo </b> </th>
+            <td> {{ route.route_type }} </td>
+        </tr>
+        <tr>
+            <th> <b> Cor </b> </th>
+            <td> 
+                <span class="badge" style="background-color: #{{ route.route_color }}; color: #{{ route.route_text }}"> # {{ route.route_color }} </span>
+            </td>
+        </tr>
+    </tbody>
+</table>

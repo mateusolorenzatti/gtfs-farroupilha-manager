@@ -1,8 +1,8 @@
 :root {
     /* Change primary color from blue to indigo */
   
-    --success-color: #08870a;    
-    --lm-button-success-bg-image-hover: #08870a;
-    --dm-button-success-bg-image-hover: #08870a;
+    --success-color: #008000;    
+    --lm-button-success-bg-image-hover: #008000;
+    --dm-button-success-bg-image-hover: #008000;
    
 }

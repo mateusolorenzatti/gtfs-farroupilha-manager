@@ -9,7 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Título -->
-    <title>GTFS Farroupilha</title>
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            GTFS Farroupilha
+        {% endif %}
+    
+    
+    </title>
 
     <!-- Favicon -->
     <link rel="icon" href="{% static 'img/favicon.ico' %}">

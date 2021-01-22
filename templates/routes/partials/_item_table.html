@@ -2,7 +2,7 @@
     <th> <spam style="color: #{{ route.route_color }};" > ⦿ &nbsp; </spam> {{ route.route_long_name }}</th>
     <th> 
         <div class="float-right">
-            <a class="btn"  >
+            <a class="btn" href="{% url 'routes:route_detail' route.route_id %}">
                 <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
             <a class="btn"  >

@@ -15,4 +15,4 @@ class Agency(models.Model):
         verbose_name_plural = "agencies"
 
     def __str__(self):
-        return self.agency_id
+        return str(self.agency_id)

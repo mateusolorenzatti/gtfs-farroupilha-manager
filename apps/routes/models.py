@@ -22,4 +22,4 @@ class Routes(models.Model):
         verbose_name_plural = "routes"
 
     def __str__(self):
-        return str(self.route_id) + ' - ' + self.route_long_name
+        return '{} - {}'.format(self.route_id, self.route_long_name)
