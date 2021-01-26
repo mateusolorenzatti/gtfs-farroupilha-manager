@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 import unidecode
 
 from apps.routes.models import Routes
+from apps.trips.models import Trips
 
 ROUTES_PER_PAGE = 15
 
@@ -35,9 +36,12 @@ def index(request):
 def route_detail(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
 
+    trips = Trips.objects.all().filter(route = route_id)
+
     context = {
         'title' : 'Rota {}'.format(route.route_id),
         'route' : route,
+        'trips': trips
     }
 
     return render(request,'routes/detail/route_detail.html', context)
