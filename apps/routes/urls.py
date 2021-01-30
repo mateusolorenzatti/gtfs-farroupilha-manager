@@ -5,6 +5,6 @@ from .views import *
 app_name = 'routes'
 urlpatterns = [
     path('', index, name='index'),
-    path('<int:route_id>', route_detail, name='route_detail'),
+    path('<int:route_id>', show_route, name='show_route'),
     path('<int:route_id>/edit', edit_route, name='edit_route'),
 ]

@@ -37,7 +37,7 @@ def index(request):
 
     return render(request,'routes/routes.html', context)
 
-def route_detail(request, route_id):
+def show_route(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
 
     trips = Trips.objects.all().filter(route = route_id)
@@ -49,11 +49,13 @@ def route_detail(request, route_id):
         'trips': trips
     }
 
-    return render(request,'routes/detail/route_detail.html', context)
+    return render(request,'routes/show/show_route.html', context)
+
+def new_route(request):
+    pass
 
 def edit_route(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
-
 
     if request.method == 'POST':
         form = RoutesForm(request.POST, instance = route)
@@ -62,7 +64,7 @@ def edit_route(request, route_id):
             form.save()
             messages.success(request,'Rota alterada com sucesso!')
 
-            return redirect('routes:route_detail', route_id)
+            return redirect('routes:show_route', route_id)
         else:
             form = RoutesForm(instance = route)
     else:

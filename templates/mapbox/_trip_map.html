@@ -1,0 +1,56 @@
+<div id='map' style='width: 100%; height: 300px;'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: {{ midpoint }},
+    zoom: 12
+    });
+
+    map.on('load', () => {
+        this.map.addSource('route', {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'properties': {},
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': [
+
+                        {% for shape in shapes %}
+
+                           [{{ shape.shape_pt_lon }}, {{ shape.shape_pt_lat }} ] ,
+
+                        {% endfor %}
+
+                    ]
+                }
+            }
+        });
+
+     this.map.addLayer({
+        'id': 'route',
+        'type': 'line',
+        'source': 'route',
+        'layout': {
+            'line-join': 'round',
+            'line-cap': 'round'
+        },
+        'paint': {
+            'line-color': '#{{ route.route_color }}',
+            'line-width': 5
+        }
+     });
+
+     {% for stop in stop_times %}
+            
+        new mapboxgl.Marker()
+            .setLngLat( [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ])
+            .addTo(this.map);
+
+     {% endfor %}
+
+    });
+
+</script>

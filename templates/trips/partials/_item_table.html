@@ -2,12 +2,17 @@
     <th> {{ trip.trip_id|slice:"2:8" }}</th>
     <th> 
         <div class="float-right">
-            <a class="btn" href="">
+
+            <!-- Ver a Trip -->
+            <a class="btn" href="{% url 'trips:show_trip' trip.trip_id %}">
                 <i class="fa fa-eye" aria-hidden="true"></i>
             </a>
+
+            <!-- Editar a Trip -->
             <a class="btn"  >
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
+
         </div>
     </th>
 </tr>

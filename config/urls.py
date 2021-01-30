@@ -22,5 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('apps.gtfs.urls'), name='gtfs'),
     path('routes/', include('apps.routes.urls'), name='routes'),
+    path('trips/', include('apps.trips.urls'), name='trips'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

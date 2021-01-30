@@ -1,0 +1,18 @@
+{% extends 'basic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    {% include 'basic/partials/_header.html' %}
+
+    {% include 'basic/partials/_alerts.html' %}
+
+    <div class="card">
+        {% include 'mapbox/_trip_map.html' %}
+    </div>
+
+
+</div>
+
+{% endblock %}
