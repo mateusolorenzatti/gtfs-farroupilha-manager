@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class="container">
+    
+    {% include 'basic/partials/_header.html' %}
 
     <div class="mt-5">
         <div class="content mw-full">
-
-            {% include 'basic/partials/_header.html' %}
 
             <form action="{% url 'routes:index' %}" method="GET" class="form-inline">    
                 

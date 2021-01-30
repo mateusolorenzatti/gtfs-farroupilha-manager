@@ -33,11 +33,14 @@
 
 <body data-set-preferred-mode-onload="true" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
     <div class="page-wrapper with-navbar with-sidebar" data-sidebar-hidden="hidden">
+        
+        <!-- This parent container is required -->
+        <div class="sticky-alerts"></div>
 
         {% include 'basic/partials/_navbar.html' %}
         {% include 'basic/partials/_sidebar.html' %}
         
-        <div class="content-wrapper">
+        <div class="content-wrapper ">
             {% block content %} {% endblock %}
         </div>
     

@@ -26,12 +26,13 @@ SECRET_KEY = 'cdv#docq9xi=^ky@+lgl^5r&x9e%)-+%o(i6fgyoridafpg$_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Apps do Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Apps instaladas
+    'widget_tweaks',
+
+    # Apps do projeto
     'apps.gtfs',
     'apps.agency',
     'apps.routes',

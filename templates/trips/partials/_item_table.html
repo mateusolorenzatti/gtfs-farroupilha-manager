@@ -1,6 +1,5 @@
 <tr>
-    <th> {{ trip.trip_id }}</th>
-    <th> {{ trip.trip_headsign }}  {{ trip.trip_short_name }} </th>
+    <th> {{ trip.trip_id|slice:"2:8" }}</th>
     <th> 
         <div class="float-right">
             <a class="btn" href="">

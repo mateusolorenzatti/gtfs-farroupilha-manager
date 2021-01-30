@@ -6,14 +6,38 @@
 
     {% include 'basic/partials/_header.html' %}
    
-    <p> Informações da Rota: </p>
+    {% include 'basic/partials/_alerts.html' %}
+
+    <div class="row">
+        <div class="col-10"> <p> Informações da Rota: </p> </div>
+        
+        <div class="col-2 text-right">
+            <p>
+                <a class="btn btn-success text-white" href="{% url 'routes:edit_route' route.route_id %}">
+                    <i class="fa fa-pencil mr-5" aria-hidden="true"></i> Editar
+                </a>
+            </p>
+        </div>       
+    </div>
+   
     {% include 'routes/detail/_route_table.html' %}
     
     <br>
     <hr>
     <br>
 
-    <p> Informações dos Trajetos existentes: </p>
+    <div class="row">
+        <div class="col-10"> <p> <p> Informações dos Trajetos existentes: </p> </p> </div>
+        
+        <div class="col-2 text-right">
+            <p>
+                <a class="btn btn-primary text-white ">
+                    <i class="fa fa-plus mr-5" aria-hidden="true"></i> Adicionar
+                </a>
+            </p>
+        </div>       
+    </div>
+
     {% include 'trips/partials/_trip_table.html' %}
 
 </div>

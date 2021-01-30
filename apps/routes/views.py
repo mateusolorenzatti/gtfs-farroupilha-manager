@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from  django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.contrib import auth, messages
 
 import unidecode
+
+from apps.routes.forms import RoutesForm
 
 from apps.routes.models import Routes
 from apps.trips.models import Trips
@@ -27,6 +30,7 @@ def index(request):
 
     context = {
         'title' : 'Rotas',
+        'prev_url': 'dashboard',
         'routes' : rotas_pag,
         'query': query
     }
@@ -40,8 +44,34 @@ def route_detail(request, route_id):
 
     context = {
         'title' : 'Rota {}'.format(route.route_id),
+        'prev_url': 'routes:index',
         'route' : route,
         'trips': trips
     }
 
     return render(request,'routes/detail/route_detail.html', context)
+
+def edit_route(request, route_id):
+    route = get_object_or_404(Routes, route_id=route_id)
+
+
+    if request.method == 'POST':
+        form = RoutesForm(request.POST, instance = route)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Rota alterada com sucesso!')
+
+            return redirect('routes:route_detail', route_id)
+        else:
+            form = RoutesForm(instance = route)
+    else:
+        form = RoutesForm(instance = route)
+
+    context = {
+        'title' : 'Editar a Rota {}'.format(route.route_id),
+        'form': form,
+        'route' : route,
+    }
+
+    return render(request,'routes/edit/edit_route.html', context)
