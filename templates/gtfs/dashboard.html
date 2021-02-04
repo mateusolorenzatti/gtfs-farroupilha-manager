@@ -4,94 +4,96 @@
 
 <div class="container">
 
-    <p class=""> Bem vindo(a), {{ user.first_name }} {{ user.last_name }} </p>
-    <hr>
+    <div class="card">
+        <h6 class="card-title"> Bem vindo(a), {{ user.first_name }} {{ user.last_name }} </h6>
 
-    <div class="row">
-        <div class="col-md-6 mt-5 pr-5">
-            <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'routes:index' %}" style="text-decoration: none;">
-                <div class="alert alert-primary">
-                    <p class="card-title">
-                        Rotas
-                    </p>
-                    <h1>
-                        {{ count.routes }}
-                    </h1>
-                    <hr>
-                    <br>
-                    <div class="text-left">
-                        {% for route in routes %}
-                        
-                        {% include 'routes/partials/_item_simple.html' %} <br>
-                        
-                        {% endfor %}
-                        <p> E mais ...</p>
-                    </div>
+        <div class="row">
+            <div class="col-md-6 mt-5 pr-5">
+                <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'routes:index' %}"
+                    style="text-decoration: none;">
+                    <div class="alert alert-primary">
+                        <p class="card-title">
+                            Rotas
+                        </p>
+                        <h1>
+                            {{ count.routes }}
+                        </h1>
+                        <hr>
+                        <br>
+                        <div class="text-left">
+                            {% for route in routes %}
 
-                </div>
-            </a>
-        </div>
+                            {% include 'routes/partials/_item_simple.html' %} <br>
 
-        <div class="col-md-6 pl-5">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                    <div class="alert alert-primary">
-                        <p class="">
-                            Agências
-                        </p>
-                        <h5>
-                            {{ count.agency }}
-                        </h5>
+                            {% endfor %}
+                            <p> E mais ...</p>
+                        </div>
+
                     </div>
-                </div>
-                
-                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                    <div class="alert alert-primary">
-                        <p class="">
-                            Trips
-                        </p>
-                        <h5>
-                            {{ count.trips }}
-                        </h5>
-                    </div>
-                </div>
-                
-                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                    <div class="alert alert-primary">
-                        <p class="">
-                            Formatos
-                        </p>
-                        <h5>
-                            {{ count.shapes }}
-                        </h5>
-                    </div>
-                </div>
-                
-                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                    <div class="alert alert-primary">
-                        <p class="">
-                            Paradas
-                        </p>
-                        <h5>
-                            {{ count.stops }}
-                        </h5>
-                    </div>
-                </div>
-            
+                </a>
             </div>
-                
-            <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                <div class="alert alert-primary">
-                    <p class="">
-                        Paradas - Hora
-                    </p>
-                    <h5>
-                        {{ count.stop_times }}
-                    </h5>
+
+            <div class="col-md-6 pl-5">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 text-center p-5 m-4">
+                        <div class="alert alert-primary">
+                            <p class="">
+                                Agências
+                            </p>
+                            <h5>
+                                {{ count.agency }}
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 text-center p-5 m-4">
+                        <div class="alert alert-primary">
+                            <p class="">
+                                Trajetos
+                            </p>
+                            <h5>
+                                {{ count.trips }}
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 text-center p-5 m-4">
+                        <div class="alert alert-primary">
+                            <p class="">
+                                Formatos
+                            </p>
+                            <h5>
+                                {{ count.shapes }}
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 text-center p-5 m-4">
+                        <div class="alert alert-primary">
+                            <p class="">
+                                Paradas
+                            </p>
+                            <h5>
+                                {{ count.stops }}
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
+                    <div class="alert alert-primary">
+                        <p class="">
+                            Paradas - Hora
+                        </p>
+                        <h5>
+                            {{ count.stop_times }}
+                        </h5>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
 
     {% endblock %}

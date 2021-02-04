@@ -2,9 +2,9 @@
     {% for message in messages %}
 
     {% if message.tags == 'error' %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger card" role="alert">
     {% else %}         
-        <div class="alert alert-{{message.tags}}" role="alert">
+        <div class="alert alert-{{message.tags}} card" role="alert">
     {% endif %}
 
         <button class="close" data-dismiss="alert" type="button" aria-label="Close">
@@ -13,6 +13,5 @@
 
         {{ message }}
     </div>
-    <br/>
     {% endfor %}
 {% endif %}

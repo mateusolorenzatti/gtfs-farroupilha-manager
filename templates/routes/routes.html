@@ -3,30 +3,33 @@
 {% block content %}
 
 <div class="container">
-    
+
     {% include 'basic/partials/_header.html' %}
 
-    <div class="mt-5">
-        <div class="content mw-full">
+    <div class="card">
+        <div class="mt-5">
+            <div class="content mw-full">
 
-            <form action="{% url 'routes:index' %}" method="GET" class="form-inline">    
-                
-                <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control" placeholder="Filtrar" name="q" id="input">
-                
-                <a class="btn float-right" onclick="document.getElementById('input').value=''">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                </a>
+                <form action="{% url 'routes:index' %}" method="GET" class="form-inline">
 
-                <input type="submit" class="btn btn-primary" value="Aplicar">
-            </form>
+                    <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control"
+                        placeholder="Filtrar" name="q" id="input">
+
+                    <a class="btn float-right" onclick="document.getElementById('input').value=''">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </a>
+
+                    <input type="submit" class="btn btn-primary" value="Aplicar">
+                </form>
+            </div>
         </div>
+        
+        {% include 'routes/partials/_pagination.html' %}
+
+        {% include 'routes/partials/_table.html' %}
+
+        {% include 'routes/partials/_pagination.html' %}
     </div>
-
-    {% include 'routes/partials/_pagination.html' %}
-
-    {% include 'routes/partials/_table.html' %}
-
-    {% include 'routes/partials/_pagination.html' %}
 
     <br>
     <br>

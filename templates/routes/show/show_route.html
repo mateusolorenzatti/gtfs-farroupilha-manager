@@ -5,40 +5,51 @@
 <div class="container">
 
     {% include 'basic/partials/_header.html' %}
-   
+
     {% include 'basic/partials/_alerts.html' %}
 
-    <div class="row">
-        <div class="col-10"> <p> Informações da Rota: </p> </div>
-        
-        <div class="col-2 text-right">
-            <p>
-                <a class="btn btn-success text-white" href="{% url 'routes:edit_route' route.route_id %}">
-                    <i class="fa fa-pencil mr-5" aria-hidden="true"></i> Editar
-                </a>
-            </p>
-        </div>       
-    </div>
-   
-    {% include 'routes/show/_route_table.html' %}
-    
-    <br>
-    <hr>
-    <br>
+    <div class="card">
+        <div class="row">
+            <div class="col-10">
+                <h6 class="card-title">
+                    Informações da Rota
+                </h6>
+            </div>
 
-    <div class="row">
-        <div class="col-10"> <p> <p> Informações dos Trajetos existentes: </p> </p> </div>
-        
-        <div class="col-2 text-right">
-            <p>
-                <a class="btn btn-primary text-white ">
-                    <i class="fa fa-plus mr-5" aria-hidden="true"></i> Adicionar
-                </a>
-            </p>
-        </div>       
+            <div class="col-2 text-right">
+                <p>
+                    <a class="btn btn-success text-white" href="{% url 'routes:edit_route' route.route_id %}">
+                        <i class="fa fa-pencil mr-5" aria-hidden="true"></i> Editar
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        {% include 'routes/show/_route_table.html' %}
     </div>
 
-    {% include 'trips/partials/_trip_table.html' %}
+    <div class="card">
+        <div class="row">
+            <div class="col-10">
+                <p>
+                    <h6 class="card-title">
+                        Informações dos Trajetos da Rota
+                    </h6>
+                </p>
+            </div>
+
+            <div class="col-2 text-right">
+                <p>
+                    <a class="btn btn-primary text-white ">
+                        <i class="fa fa-plus mr-5" aria-hidden="true"></i> Adicionar
+                    </a>
+                </p>
+            </div>
+        </div>
+
+
+        {% include 'trips/partials/_trip_table.html' %}
+    </div>
 
 </div>
 

@@ -2,26 +2,30 @@
 {% load static %}
 {% block content %}
 
-{% load widget_tweaks %} 
+{% load widget_tweaks %}
 
 <div class="container">
 
     {% include 'basic/partials/_header.html' %}
-    
-    <form action="{% url 'routes:edit_route' route.route_id %}" method="POST" class="form-group mw-full"> 
-        {% csrf_token %}
 
-        {% for field in form %}
 
-        <div class="form-group">
+    <form action="{% url 'routes:edit_route' route.route_id %}" method="POST" class="form-group mw-full">
+        <div class="card">
+            {% csrf_token %}
 
-            <label> {{ field.label }} </label>
+            {% for field in form %}
 
-            {{ field|add_class:'form-control' }}
+            <div class="form-group">
+
+                <label> {{ field.label }} </label>
+
+                {{ field|add_class:'form-control' }}
+
+            </div>
+
+            {% endfor %}
 
         </div>
-
-        {% endfor %}
 
         <div class="row card">
             <div class="col-6">
@@ -29,14 +33,15 @@
                     Cancelar
                 </a>
             </div>
-            
+
             <div class="col-6 text-right">
-                <input class="btn btn-success text-white" type="submit" value="Salvar"/>
+                <input class="btn btn-success text-white" type="submit" value="Salvar" />
             </div>
 
         </div>
 
     </form>
+
 
 </div>
 

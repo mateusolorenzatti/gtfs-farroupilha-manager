@@ -1,16 +1,23 @@
 <div id="sidebar" class="sidebar">
     <div class="sidebar-menu">
-      
-      {% if user.id %}
-      <h5 class="sidebar-title"> Acesso </h5>
-      <div class="sidebar-divider"></div>
-      <a href="/logout" class="sidebar-link"> 
-        <i class="fa fa-sign-out mr-2" aria-hidden="true"></i> &nbsp;
-        Logout 
-      </a>
-      <!-- <a href="#" class="sidebar-link">CLI commands</a> -->
 
-      {% else %}
+      {% if user.id %}
+      <h5 class="sidebar-title"> Navegação </h5>
+      <div class="sidebar-divider"></div>
+      <a href="/dashboard" class="sidebar-link"> 
+        <i class="fa fa-home mr-2" aria-hidden="true"></i> &nbsp;
+        Dashboard 
+      </a>
+
+      <!-- <a href="/admin" class="sidebar-link"> 
+        <i class="fa fa-shield mr-2" aria-hidden="true"></i> &nbsp;
+        Admin Django 
+      </a> -->
+      <br />
+      
+      {% endif %}
+
+      {% if not user.id %}
       <h5 class="sidebar-title"> Acesso </h5>
       <div class="sidebar-divider"></div>
       <a href="/login" class="sidebar-link"> 
@@ -22,9 +29,10 @@
         <i class="fa fa-shield mr-2" aria-hidden="true"></i> &nbsp;
         Admin Django 
       </a>
+      <br />
+      
       {% endif %}
       
-      <br />
       
       <h5 class="sidebar-title">Sobre</h5>
       <div class="sidebar-divider"></div>
@@ -39,13 +47,24 @@
       </a>
       
       <br />
-
+      
       <h5 class="sidebar-title">Opções</h5>
       <div class="sidebar-divider"></div>
       <a onclick="halfmoon.toggleDarkMode()" class="sidebar-link"> 
         <i class="fa fa-moon-o mr-2" aria-hidden="true"></i> &nbsp;
         Aternar Tema
       </a>
-
+      <br />
+      
+      {% if user.id %}
+      <h5 class="sidebar-title"> Logout </h5>
+      <div class="sidebar-divider"></div>
+      <a href="/logout" class="sidebar-link"> 
+        <i class="fa fa-sign-out mr-2" aria-hidden="true"></i> &nbsp;
+        Sair 
+      </a>
+      <!-- <a href="#" class="sidebar-link">CLI commands</a> -->
+      {% endif %}
+      
     </div>
   </div>
