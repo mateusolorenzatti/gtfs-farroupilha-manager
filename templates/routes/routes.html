@@ -7,7 +7,12 @@
     {% include 'basic/partials/_header.html' %}
 
     <div class="card">
+
         <div class="mt-5">
+            <div class="text-center">
+                <a class="btn btn-success text-white" href="{% url 'routes:new_route' %}"> <i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Adicionar Rota </a>
+            </div>
+            
             <div class="content mw-full">
 
                 <form action="{% url 'routes:index' %}" method="GET" class="form-inline">
@@ -29,6 +34,7 @@
         {% include 'routes/partials/_table.html' %}
 
         {% include 'routes/partials/_pagination.html' %}
+
     </div>
 
     <br>

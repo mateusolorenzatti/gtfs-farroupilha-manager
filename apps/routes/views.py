@@ -52,7 +52,28 @@ def show_route(request, route_id):
     return render(request,'routes/show/show_route.html', context)
 
 def new_route(request):
-    pass
+
+    if request.method == 'POST':
+        form = RoutesForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Rota criada com sucesso!')
+
+            return redirect('routes:show_route', form.cleaned_data['route_id'])
+
+        else:
+            messages.error(request,'Ocorreu um erro ao criar a Rota')
+            form = RoutesForm()
+    else:
+        form = RoutesForm()
+
+    context = {
+        'title' : 'Criar uma Rota',
+        'form': form
+    }
+
+    return render(request,'routes/new/new_route.html', context)
 
 def edit_route(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
