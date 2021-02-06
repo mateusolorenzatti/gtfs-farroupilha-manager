@@ -2,6 +2,8 @@
     <th> {{ stop.stop.stop_name }}</th>
     <th> {{ stop.departure_time  }} </th>
     <th> 
-               
+        <a class="btn" href="{% url 'stops:show_stop' stop.stop.stop_id %}">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+        </a>
     </th>
 </tr>

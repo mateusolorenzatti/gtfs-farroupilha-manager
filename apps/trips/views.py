@@ -26,6 +26,8 @@ def show_trip(request, trip_id):
         'route': route,
         'shapes': shapes,
         'stop_times': stop_times,
+        'first_stop': stop_times[0],
+        'last_stop': stop_times.order_by('-stop_sequence')[0],
         'midpoint': '[ {}, {} ]'.format(midpoint[0], midpoint[1]),
     }
 

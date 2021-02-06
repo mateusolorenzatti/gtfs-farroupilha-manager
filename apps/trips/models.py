@@ -30,4 +30,8 @@ class Trips(models.Model):
         verbose_name_plural = "trips"
 
     def __str__(self):
-        return self.trip_id
+        from apps.stop_times.models import StopTimes
+
+        stop_times = StopTimes.objects.filter(trip = self.trip_id).order_by('stop_sequence')
+
+        return "{} - T{} ({} - {})".format(self.route.route_long_name, self.trip_id[2:8], stop_times[0].departure_time, stop_times.order_by('-stop_sequence')[0].departure_time)

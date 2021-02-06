@@ -1,0 +1,25 @@
+<div class="card"> 
+
+    <div class="row">
+        <div class="col-5 text-center"> 
+            <p> Saída </p>
+            <p> <i class="fa fa-map-marker" aria-hidden="true"></i> </p>
+            <small> {{ first_stop.stop.stop_name }} </small> <br>
+            <small> {{ first_stop.departure_time }} </small>
+        </div>
+        
+        <div class="col-2 text-center">
+            <br>
+            <p> <i class="fa fa-arrow-right" aria-hidden="true"></i> </p>
+
+        </div>
+        
+        <div class="col-5 text-center"> 
+            <p> Chegada </p>
+            <p> <i class="fa fa-flag-checkered" aria-hidden="true"></i> </p>
+            <small> {{ last_stop.stop.stop_name }} </small> <br>
+            <small> {{ last_stop.departure_time }} </small>
+        </div>
+    </div>
+    
+</div>
