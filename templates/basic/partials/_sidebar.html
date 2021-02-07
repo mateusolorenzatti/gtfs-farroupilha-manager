@@ -50,7 +50,7 @@
       
       <h5 class="sidebar-title">Opções</h5>
       <div class="sidebar-divider"></div>
-      <a onclick="halfmoon.toggleDarkMode()" class="sidebar-link"> 
+      <a onclick="halfmoon.toggleDarkMode(); if(!(map.getStyle().name.includes('Streets'))) { map.setStyle('mapbox://styles/mapbox/' + (document.cookie.includes('dark') ? 'dark-v10' : 'light-v10')) };" class="sidebar-link"> 
         <i class="fa fa-moon-o mr-2" aria-hidden="true"></i> &nbsp;
         Aternar Tema
       </a>

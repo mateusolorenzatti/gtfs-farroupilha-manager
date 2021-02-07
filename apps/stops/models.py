@@ -23,4 +23,7 @@ class Stops(models.Model):
         verbose_name_plural = "stops"
 
     def __str__(self):
+        if self.stop_id is None or self.stop_name is None:
+            return 'Sem ID'
+        
         return str(self.stop_id) + ' - ' + self.stop_name

@@ -1,0 +1,47 @@
+{% extends 'basic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    {% include 'basic/partials/_header.html' %}
+
+    {% include 'basic/partials/_alerts.html' %}
+
+    <div class="card">
+
+        <div class="mt-5">
+            <div class="text-center">
+                <a class="btn btn-success text-white" href="{% url 'stops:new_stop' %}"> <i class="fa fa-plus" aria-hidden="true"></i> &nbsp; Adicionar Parada </a>
+            </div>
+            
+            <div class="content mw-full">
+
+                <form action="{% url 'stops:index' %}" method="GET" class="form-inline">
+
+                    <input type="text" {% if query %} value="{{ query }}" {% endif %} class="form-control"
+                        placeholder="Filtrar" name="q" id="input">
+
+                    <a class="btn float-right" onclick="document.getElementById('input').value=''">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </a>
+
+                    <input type="submit" class="btn btn-primary" value="Aplicar">
+                </form>
+            </div>
+        </div>
+        
+        {% include 'stops/index/_pagination.html' %}
+
+        {% include 'stops/index/_stops_table.html' %}
+
+        {% include 'stops/index/_pagination.html' %}
+
+    </div>
+
+    <br>
+    <br>
+
+</div>
+
+{% endblock %}

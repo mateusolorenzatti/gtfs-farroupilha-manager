@@ -1,16 +1,23 @@
-<div id='map' style='width: 100%; height: 300px;'></div>
+<div id='map' style='width: 100%; height: 250px;'></div>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [ {{ stop.stop_lon }} , {{ stop.stop_lat }} ],
-        zoom: 13    
+        style: 'mapbox://styles/mapbox/' + (document.cookie.includes('dark') ? 'dark-v10' : 'light-v10'), // Verifica qual é o tema do Halfmoon
+        center: [-51.348123, -29.226622], // Praça da Matriz
+        zoom: 12
     });
 
     map.on('load', () => {
+
+     {% for stop in stops %}
+            
         new mapboxgl.Marker()
             .setLngLat( [ {{ stop.stop_lon }} , {{ stop.stop_lat }} ])
             .addTo(this.map);
+
+     {% endfor %}
+
     });
+
 </script>

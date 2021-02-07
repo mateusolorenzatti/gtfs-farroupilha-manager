@@ -7,8 +7,12 @@
     {% include 'basic/partials/_header.html' %}
 
     {% include 'basic/partials/_alerts.html' %}
+    
+    {% include 'stops/modal/_modal_excluir.html' %}
 
-    <div class="card">
+    <div class="card text-center">
+        <h6> {{ stop.stop_name }} </h6>
+
         {% include 'mapbox/_stop_map.html' %}
     </div>
     
@@ -20,6 +24,13 @@
         {% include 'stops/partials/_stop_time_table.html' %}
     </div>
 
+    <div class="card">
+        <h6 class="card-title">
+            Outras Opções
+        </h6>
+
+        <a href="#modal-1" class="btn btn-danger" role="button"> <i class="fa fa-trash" aria-hidden="true"></i> Excluir a Parada </a>
+    </div>
 
 </div>
 

@@ -10,8 +10,12 @@
     
     {% include 'basic/partials/_alerts.html' %}
     
-    <form action="{% url 'routes:new_route' %}" method="POST" class="form-group mw-full">
+    <form action="{% url 'stops:new_stop' %}" method="POST" class="form-group mw-full">
         <div class="card">
+            
+            {% include 'mapbox/_draggable_stop.html' %}
+
+            <br>
 
             {% csrf_token %}
 

@@ -7,8 +7,8 @@
     <div class="card">
         <h6 class="card-title"> Bem vindo(a), {{ user.first_name }} {{ user.last_name }} </h6>
 
-        <div class="row">
-            <div class="col-md-6 mt-5 pr-5">
+        <div class="row mb-5">
+            <div class="col-md-4 mt-5 px-5">
                 <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'routes:index' %}"
                     style="text-decoration: none;">
                     <div class="alert alert-primary">
@@ -32,11 +32,37 @@
                     </div>
                 </a>
             </div>
+            
+            <div class="col-md-8 mt-5 px-5">
+                <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'stops:index' %}"
+                    style="text-decoration: none;">
+                    <div class="alert alert-primary">
+                        <p class="card-title">
+                            Paradas
+                        </p>
+                        <h1>
+                            {{ count.stops }}
+                        </h1>
+                        <hr>
+                        <br>
+                        <div class="text-left">
+                            {% include 'mapbox/_dash_map.html' %}
 
-            <div class="col-md-6 pl-5">
+
+                            <p> E mais ...</p>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="row"> 
+            <div class="col-12">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                        <div class="alert alert-primary">
+                        <div class="alert">
                             <p class="">
                                 Agências
                             </p>
@@ -47,7 +73,7 @@
                     </div>
 
                     <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                        <div class="alert alert-primary">
+                        <div class="alert">
                             <p class="">
                                 Trajetos
                             </p>
@@ -56,20 +82,9 @@
                             </h5>
                         </div>
                     </div>
-
+                    
                     <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                        <div class="alert alert-primary">
-                            <p class="">
-                                Formatos
-                            </p>
-                            <h5>
-                                {{ count.shapes }}
-                            </h5>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                        <div class="alert alert-primary">
+                        <div class="alert">
                             <p class="">
                                 Paradas
                             </p>
@@ -79,20 +94,18 @@
                         </div>
                     </div>
 
-                </div>
-
-                <div class="col-sm-12 col-md-3 text-center p-5 m-4">
-                    <div class="alert alert-primary">
-                        <p class="">
-                            Paradas - Hora
-                        </p>
-                        <h5>
-                            {{ count.stop_times }}
-                        </h5>
+                    <div class="col-sm-12 col-md-3 text-center p-5">
+                        <div class="alert">
+                            <p class="">
+                                Paradas - Hora
+                            </p>
+                            <h5>
+                                {{ count.stop_times }}
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

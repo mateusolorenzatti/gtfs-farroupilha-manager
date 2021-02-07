@@ -1,0 +1,13 @@
+<tr>
+    <th> <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp; {{ stop.stop_name }}</th>
+    <th> 
+        <div class="float-right">
+            <a class="btn" href="{% url 'stops:show_stop' stop.stop_id %}">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+            </a>
+            <a class="btn" href="{% url 'stops:index' %}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+        </div>
+    </th>
+</tr>
