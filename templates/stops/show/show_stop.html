@@ -10,8 +10,22 @@
     
     {% include 'stops/modal/_modal_excluir.html' %}
 
-    <div class="card text-center">
-        <h6> {{ stop.stop_name }} </h6>
+    <div class="card">
+        <div class="row">
+            <div class="col-10">
+                <p>
+                    {{ stop.stop_name }}
+                </p>
+            </div>
+
+            <div class="col-2 text-right">
+                <p>
+                    <a class="btn btn-success text-white" href="{% url 'stops:edit_stop' stop.stop_id %}">
+                        <i class="fa fa-pencil mr-5" aria-hidden="true"></i> Editar
+                    </a>
+                </p>
+            </div>
+        </div>
 
         {% include 'mapbox/_stop_map.html' %}
     </div>

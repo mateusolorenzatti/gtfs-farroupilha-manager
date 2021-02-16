@@ -2,18 +2,29 @@
     <div class="sidebar-menu">
 
       {% if user.id %}
-      <h5 class="sidebar-title"> Navegação </h5>
-      <div class="sidebar-divider"></div>
-      <a href="/dashboard" class="sidebar-link"> 
-        <i class="fa fa-home mr-2" aria-hidden="true"></i> &nbsp;
-        Dashboard 
-      </a>
+        <h5 class="sidebar-title"> Navegação </h5>
+        <div class="sidebar-divider"></div>
+        
+        <a href="/dashboard" class="sidebar-link"> 
+          <i class="fa fa-home mr-2" aria-hidden="true"></i> &nbsp;
+          Dashboard 
+        </a>
+        
+        <a href="{% url 'routes:index' %}" class="sidebar-link"> 
+          <i class="fa fa-bus mr-2" aria-hidden="true"></i> &nbsp;
+          Rotas 
+        </a>
+        
+        <a href="{% url 'stops:index' %}" class="sidebar-link"> 
+          <i class="fa fa-map-marker mr-2" aria-hidden="true"></i> &nbsp;
+          Paradas
+        </a>
 
-      <!-- <a href="/admin" class="sidebar-link"> 
-        <i class="fa fa-shield mr-2" aria-hidden="true"></i> &nbsp;
-        Admin Django 
-      </a> -->
-      <br />
+        <!-- <a href="/admin" class="sidebar-link"> 
+          <i class="fa fa-shield mr-2" aria-hidden="true"></i> &nbsp;
+          Admin Django 
+        </a> -->
+        <br />
       
       {% endif %}
 

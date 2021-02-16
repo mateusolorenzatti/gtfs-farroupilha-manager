@@ -9,7 +9,17 @@
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-51.348123, -29.226622],
+        center: 
+            {% if stop %}
+
+                [ {{ stop.stop_lon }} , {{ stop.stop_lat }} ]
+                    
+            {% else %}
+                    
+                [-51.348123, -29.226622]
+                    
+            {% endif %}
+        ,
         zoom: 13
     });
 
@@ -22,7 +32,17 @@
                 'type': 'Feature',
                 'geometry': {
                     'type': 'Point',
-                    'coordinates': [-51.348123, -29.226622]
+                    'coordinates': 
+                    
+                    {% if stop %}
+
+                        [ {{ stop.stop_lon }} , {{ stop.stop_lat }} ]
+                    
+                    {% else %}
+                    
+                        [-51.348123, -29.226622]
+                    
+                    {% endif %}
                 }
             }
         ]

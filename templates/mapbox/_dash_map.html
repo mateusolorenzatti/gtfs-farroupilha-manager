@@ -1,4 +1,4 @@
-<div id='map' style='width: 100%; height: 250px;'></div>
+<div id='map' style='width: 100%; height: 259px;'></div>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
     var map = new mapboxgl.Map({
@@ -9,6 +9,7 @@
     });
 
     map.on('load', () => {
+        map.resize();
 
      {% for stop in stops %}
             

@@ -7,11 +7,11 @@
     <div class="card">
         <h6 class="card-title"> Bem vindo(a), {{ user.first_name }} {{ user.last_name }} </h6>
 
-        <div class="row mb-5">
+        <div class="row equal row-eq-height mb-5">
             <div class="col-md-4 mt-5 px-5">
                 <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'routes:index' %}"
                     style="text-decoration: none;">
-                    <div class="alert alert-primary">
+                    <div class="alert alert-primary" style="height: 100%;">
                         <p class="card-title">
                             Rotas
                         </p>
@@ -36,7 +36,7 @@
             <div class="col-md-8 mt-5 px-5">
                 <a class="col-sm-12 col-md-4 text-center m-4" href="{% url 'stops:index' %}"
                     style="text-decoration: none;">
-                    <div class="alert alert-primary">
+                    <div class="alert alert-primary" style="height: 100%;">
                         <p class="card-title">
                             Paradas
                         </p>
@@ -47,9 +47,6 @@
                         <br>
                         <div class="text-left">
                             {% include 'mapbox/_dash_map.html' %}
-
-
-                            <p> E mais ...</p>
                         </div>
 
                     </div>

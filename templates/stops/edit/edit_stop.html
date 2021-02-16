@@ -1,0 +1,15 @@
+{% extends 'basic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    {% include 'basic/partials/_header.html' %}
+
+    <form action="{% url 'stops:edit_stop' stop.stop_id %}" method="POST" class="form-group mw-full">
+        {% include 'stops/forms/stop_form.html' %}
+    </form>
+
+</div>
+
+{% endblock %}

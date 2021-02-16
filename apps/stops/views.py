@@ -86,6 +86,30 @@ def show_stop(request, stop_id):
 
     return render(request,'stops/show/show_stop.html', context)
 
+def edit_stop(request, stop_id):
+    stop = get_object_or_404(Stops, stop_id=stop_id)
+
+    if request.method == 'POST':
+        form = StopsForm(request.POST, instance = stop)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Parada alterada com sucesso!')
+
+            return redirect('stops:show_stop', stop_id)
+        else:
+            form = StopsForm(instance = stop)
+    else:
+        form = StopsForm(instance = stop)
+
+    context = {
+        'title' : 'Editar a Parada {}'.format(stop_id),
+        'form': form,
+        'stop' : stop,
+    }
+
+    return render(request,'stops/edit/edit_stop.html', context)
+
 def delete_stop(request, stop_id):
     instance = Stops.objects.get(stop_id = stop_id)
 
