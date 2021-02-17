@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from apps.gtfs.helpers.coordinates import shape_midpoint
 
@@ -10,6 +11,7 @@ from apps.shapes.models import Shapes
 from apps.stops.models import Stops
 from apps.stop_times.models import StopTimes
 
+@login_required
 def show_trip(request, trip_id):
 
     trip = get_object_or_404(Trips, trip_id=trip_id)

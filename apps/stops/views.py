@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from  django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 import unidecode
 
@@ -13,6 +14,7 @@ from apps.stops.forms import StopsForm
 
 STOPS_PER_PAGE = 15
 
+@login_required
 def index(request):
     stops = Stops.objects.order_by('stop_name')
     query = request.GET.get('q')
@@ -46,6 +48,7 @@ def index(request):
 
     return render(request,'stops/index/stops.html', context)
 
+@login_required
 def new_stop(request):
 
     if request.method == 'POST':
@@ -73,6 +76,7 @@ def new_stop(request):
 
     return render(request,'stops/new/new_stop.html', context)
 
+@login_required
 def show_stop(request, stop_id):
 
     stop = get_object_or_404(Stops, stop_id=stop_id)
@@ -80,12 +84,14 @@ def show_stop(request, stop_id):
 
     context = {
         'title' : 'Parada {}'.format(stop_id),
+        'prev_url': 'stops:index',
         'stop': stop,
         'stop_times': stop_times,
     }
 
     return render(request,'stops/show/show_stop.html', context)
 
+@login_required
 def edit_stop(request, stop_id):
     stop = get_object_or_404(Stops, stop_id=stop_id)
 
@@ -110,6 +116,7 @@ def edit_stop(request, stop_id):
 
     return render(request,'stops/edit/edit_stop.html', context)
 
+@login_required
 def delete_stop(request, stop_id):
     instance = Stops.objects.get(stop_id = stop_id)
 

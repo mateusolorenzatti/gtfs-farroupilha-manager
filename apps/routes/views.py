@@ -3,6 +3,7 @@ from  django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 
 import unidecode
 
@@ -13,6 +14,7 @@ from apps.trips.models import Trips
 
 ROUTES_PER_PAGE = 15
 
+@login_required
 def index(request):
     rotas = Routes.objects.order_by('route_long_name')
     query = request.GET.get('q')
@@ -37,6 +39,7 @@ def index(request):
 
     return render(request,'routes/routes.html', context)
 
+@login_required
 def show_route(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
 
@@ -51,6 +54,7 @@ def show_route(request, route_id):
 
     return render(request,'routes/show/show_route.html', context)
 
+@login_required
 def new_route(request):
 
     if request.method == 'POST':
@@ -75,6 +79,7 @@ def new_route(request):
 
     return render(request,'routes/new/new_route.html', context)
 
+@login_required
 def edit_route(request, route_id):
     route = get_object_or_404(Routes, route_id=route_id)
 
