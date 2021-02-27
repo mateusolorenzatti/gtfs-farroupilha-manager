@@ -34,3 +34,19 @@ def show_trip(request, trip_id):
     }
 
     return render(request,'trips/show/show_trip.html', context)
+
+@login_required
+def new_trip_manual(request):
+    context = {
+        'title' : 'Nova Trip - Manual',
+    }
+
+    return render(request,'trips/new/new_trip_manual.html', context)
+
+@login_required
+def new_trip_file(request):
+    context = {
+        'title' : 'Nova Trip - Arquivo',
+    }
+
+    return render(request,'trips/new/new_trip_file.html', context)

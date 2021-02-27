@@ -4,7 +4,7 @@ from .views import *
 
 app_name = 'trips'
 urlpatterns = [
-    # path('', index, name='index'),
-    path('<str:trip_id>', show_trip, name='show_trip'),
-    # path('<int:route_id>/edit', edit_route, name='edit_route'),
+    path('detail/<str:trip_id>/', show_trip, name='show_trip'),
+    path('new_manual/', new_trip_manual, name='new_trip_manual'),
+    path('new_file/', new_trip_file, name='new_trip_file'),
 ]
