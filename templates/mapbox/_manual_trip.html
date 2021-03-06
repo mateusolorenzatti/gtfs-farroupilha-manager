@@ -1,0 +1,34 @@
+<div id='map' style='width: 100%; height: 300px;'></div>
+<script>
+    const API_URL = 'http://127.0.0.1:8081/';
+    const API_GET_AREA = 'stops/';
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-51.348123, -29.226622],
+        zoom: 16 
+    });
+
+    map.on('load', () => {
+
+        let lat0 = String(map.getBounds()._sw.lat).substr(0, 10)
+        let lng0 = String(map.getBounds()._sw.lng).substr(0, 10)
+        let lat1 = String(map.getBounds()._ne.lat).substr(0, 10)
+        let lng1 = String(map.getBounds()._ne.lng).substr(0, 10)
+
+        fetch(API_URL + API_GET_AREA + lat1 + '/' + lng0 + '/' + lat0 + '/' + lng1 + '/?limit=100')
+        .then(res => res.json())
+
+        .then(data => {
+            data.forEach( parada => 
+                new mapboxgl.Marker()
+                    .setLngLat([parada.stop_lon, parada.stop_lat])
+                    .addTo(this.map)
+            )
+        });
+
+    });
+
+</script>
