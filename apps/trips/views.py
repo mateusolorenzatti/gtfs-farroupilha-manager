@@ -11,6 +11,9 @@ from apps.shapes.models import Shapes
 from apps.stops.models import Stops
 from apps.stop_times.models import StopTimes
 
+from .forms import GPS_file_form
+from .file_utils.handle_uploads import handle_uploaded_file
+
 @login_required
 def show_trip(request, trip_id):
 
@@ -45,8 +48,17 @@ def new_trip_manual(request):
 
 @login_required
 def new_trip_file(request):
+
+    if request.method == 'POST' and ('file' in request.FILES):
+
+        print(request.FILES.get('file'))
+
+        # handle_uploaded_file(request.FILES['file'], request.user)
+
+        return redirect('dashboard')
+
     context = {
-        'title' : 'Nova Trip - Arquivo',
+        'title' : 'Nova Trip - Arquivo'
     }
 
-    return render(request,'trips/new/new_trip_file.html', context)
+    return render(request,'trips/new/new_trip_file_upload.html', context)

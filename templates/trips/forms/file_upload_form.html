@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+
+<form enctype="multipart/form-data" action="{% url 'trips:new_trip_file' %}" method="POST" class="form-group mw-full">
+    
+    <div class="card row">
+        <div class="col-8">
+            <div class="text-center">
+                <br>
+                {% csrf_token %}
+        
+                <div class="custom-file">
+                    <input type="file" id="file" name="file">
+                    <label for="file"> Selecione o arquivo de GPS </label>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-4">
+            <div class="">
+                <p> Tipos de arquivo suportados: </p>
+        
+                <ul>
+                    <li class="badge badge-pill badge-success text-white"> .KML </li> <small class="ml-5"> Formato disponível </small> <br>
+                    <li class="badge badge-pill disabled"> .GPX </li> <small class="text-danger ml-5"> Formato ainda não disponível </small> <br>
+                    <li class="badge badge-pill disabled"> .KMZ </li> <small class="text-danger ml-5"> Formato ainda não disponível </small> <br>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row card">
+        <div class="col-6">
+            <a class="btn btn-danger" href="{% url 'dashboard' %}">
+                Voltar para a Home
+            </a>
+        </div>
+
+        <div class="col-6 text-right">
+            <input class="btn btn-success text-white" type="submit" value="Upload" />
+        </div>
+    </div>
+
+</form>
