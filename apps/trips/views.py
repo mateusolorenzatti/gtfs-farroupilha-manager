@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from apps.gtfs.helpers.coordinates import shape_midpoint
 
@@ -12,7 +13,8 @@ from apps.stops.models import Stops
 from apps.stop_times.models import StopTimes
 
 from .forms import GPS_file_form
-from .file_utils.handle_uploads import handle_uploaded_file
+from .helpers.handle_uploads import handle_uploaded_file
+from .helpers.gps2gtfs.KML_helper import KML
 
 @login_required
 def show_trip(request, trip_id):
@@ -50,12 +52,22 @@ def new_trip_manual(request):
 def new_trip_file(request):
 
     if request.method == 'POST' and ('file' in request.FILES):
+        filename = request.FILES.get('file').name
 
-        print(request.FILES.get('file'))
+        extensoes_suportadas = ['.kml']
+        if any(ext in filename for ext in extensoes_suportadas):
 
-        # handle_uploaded_file(request.FILES['file'], request.user)
+            new_file = handle_uploaded_file(request.FILES.get('file'), request.user)
 
-        return redirect('dashboard')
+            if filename.endswith('.kml'):
+                stops, shapes = KML(new_file)
+
+
+            return redirect('dashboard')
+
+        else: 
+            messages.error(request, 'Formato de arquivo inválido! Confira a lista com formatos permitidos')
+
 
     context = {
         'title' : 'Nova Trip - Arquivo'
