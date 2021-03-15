@@ -4,7 +4,11 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from apps.gtfs.helpers.coordinates import shape_midpoint
+from .forms import GPS_file_form, TripForm
+
+from apps.gtfs.helpers.coordinates import shape_midpoint, shape_midpoint_dict
+from apps.gtfs.helpers.handle_uploads import handle_uploaded_file
+from apps.gtfs.helpers.gps2gtfs.KML_helper import KML
 
 from apps.trips.models import Trips
 from apps.routes.models import Routes
@@ -12,9 +16,6 @@ from apps.shapes.models import Shapes
 from apps.stops.models import Stops
 from apps.stop_times.models import StopTimes
 
-from .forms import GPS_file_form
-from .helpers.handle_uploads import handle_uploaded_file
-from .helpers.gps2gtfs.KML_helper import KML
 
 @login_required
 def show_trip(request, trip_id):
@@ -41,7 +42,7 @@ def show_trip(request, trip_id):
     return render(request,'trips/show/show_trip.html', context)
 
 @login_required
-def new_trip_manual(request):
+def new_trip_manual(request, route_id):
     context = {
         'title' : 'Nova Trip - Manual',
     }
@@ -49,7 +50,7 @@ def new_trip_manual(request):
     return render(request,'trips/new/new_trip_manual.html', context)
 
 @login_required
-def new_trip_file(request):
+def new_trip_file(request, route_id):
 
     if request.method == 'POST' and ('file' in request.FILES):
         filename = request.FILES.get('file').name
@@ -59,18 +60,37 @@ def new_trip_file(request):
 
             new_file = handle_uploaded_file(request.FILES.get('file'), request.user)
 
+            context = {}
             if filename.endswith('.kml'):
-                stops, shapes = KML(new_file)
+                context['stop_times'], context['shapes'] = KML(new_file)
 
+            new_trip_id = '{}{}{}'.format('t_', int(Trips.objects.all().order_by('-trip_id')[0].trip_id[2:8]) + 1, '_b_6309_tn_0')
+            
+            temp_trip = Trips(
+                trip_id = new_trip_id,
+                service_id = 'c_5988_b_6309_d_31',
+                # shape_id = # Definir o ID da Shape gerada
+            )
+            
+            route = Routes.objects.filter(route_id = route_id)
 
-            return redirect('dashboard')
+            if route: temp_trip.route = route[0]
+
+            context['trip_form'] = TripForm(instance = temp_trip)
+            
+            context['midpoint'] = shape_midpoint_dict(context['shapes'])
+
+            context['title'] = 'Nova Trip - Formulário de Validação'
+
+            return render(request,'trips/new/new_trip_scratch.html', context)
 
         else: 
             messages.error(request, 'Formato de arquivo inválido! Confira a lista com formatos permitidos')
 
 
     context = {
-        'title' : 'Nova Trip - Arquivo'
+        'title' : 'Nova Trip - Arquivo',
+        'route_id': route_id
     }
 
     return render(request,'trips/new/new_trip_file_upload.html', context)

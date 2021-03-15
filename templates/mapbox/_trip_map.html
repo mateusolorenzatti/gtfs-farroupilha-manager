@@ -38,7 +38,12 @@
             'line-cap': 'round'
         },
         'paint': {
-            'line-color': '#{{ route.route_color }}',
+            {% if route %}
+                'line-color': '#{{ route.route_color }}',
+            {% else %}
+                'line-color': '#a8201a',
+            {% endif %}
+
             'line-width': 5
         }
      });

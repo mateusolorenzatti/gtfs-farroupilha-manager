@@ -6,7 +6,12 @@
         <h5 class="modal-title"> Certo. Como podemos prosseguir? </h5>
         
         <div class="">
-            <a href="{% url 'trips:new_trip_manual' %}" style="text-decoration: none;">
+            {% if route %} 
+                <a href="{% url 'trips:new_trip_manual' route.route_id  %}" style="text-decoration: none;">           
+            {% else %}             
+                <a href="{% url 'trips:new_trip_manual' 0 %}" style="text-decoration: none;">           
+            {% endif %}
+
                 <div class="card bg-primary text-white text-center"> 
                     <h2> <i class="fa fa-cogs fa-4" aria-hidden="true"></i> <br> </h2>
                     
@@ -17,8 +22,13 @@
             <div class="text-center"> 
                 Ou
             </div>
-            
-            <a href="{% url 'trips:new_trip_file' %}" style="text-decoration: none;">
+
+            {% if route %} 
+                <a href="{% url 'trips:new_trip_file' route.route_id  %}" style="text-decoration: none;">           
+            {% else %}             
+                <a href="{% url 'trips:new_trip_file' 0 %}" style="text-decoration: none;">           
+            {% endif %}
+
                 <div class="card bg-primary text-white text-center"> 
                     
                     <h2> <i class="fa fa-file-text fa-4" aria-hidden="true"></i> <br> </h2>

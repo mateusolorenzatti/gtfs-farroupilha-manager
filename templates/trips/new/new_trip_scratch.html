@@ -1,0 +1,48 @@
+{% extends 'basic/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+
+    {% include 'basic/partials/_header.html' %}
+
+    {% include 'basic/partials/_alerts.html' %}
+
+    <div class="card">
+        {% include 'trips/forms/_new_trip_form.html' %}
+    </div>
+
+    <div class="card">
+        {% include 'mapbox/_trip_map.html' %}
+    </div>
+
+    <div class="card">
+        <p> Relação Parada / Horário: </p>
+
+        <table class="table">
+            <tbody>
+                <thead>
+                    <tr>
+                      <th> Ordem </th>
+                      <th> Parada </th>
+                      <th> Horário </th>
+                    </tr>
+                </thead>
+
+                {% for stop in stop_times %}
+
+                <tr>
+                    <th> {{ stop.stop_sequence }} </th>
+                    <td> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </td>
+                    <td> {{ stop.arrival_time|date:"H:i:s" }} </td>
+                </tr> 
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

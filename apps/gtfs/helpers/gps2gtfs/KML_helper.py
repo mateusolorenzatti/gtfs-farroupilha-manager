@@ -1,4 +1,7 @@
 from bs4 import BeautifulSoup
+import datetime
+
+DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%fZ'
 
 def extract_stops(bs_data):
     '''
@@ -12,6 +15,7 @@ def extract_stops(bs_data):
 
     # print(stops_kml[0].prettify())
 
+    seq = 1
     stops = []
     for stop in stops_kml:
         '''
@@ -22,13 +26,22 @@ def extract_stops(bs_data):
         # float(stop('Point')[0]('coordinates')[0].contents[0].split(',')[0]) -> Longitude
         '''
 
+        timestamp = datetime.datetime.strptime(stop('TimeStamp')[0]('when')[0].contents[0], DATE_TIME_FORMAT)
+        
         stops.append(
             {
-                'lat': float(stop('Point')[0]('coordinates')[0].contents[0].split(',')[1]), 
-                'lon': float(stop('Point')[0]('coordinates')[0].contents[0].split(',')[0]), 
-                'timestamp': stop('TimeStamp')[0]('when')[0].contents[0]
+                'stop': 
+                {
+                    'stop_lat': float(stop('Point')[0]('coordinates')[0].contents[0].split(',')[1]), 
+                    'stop_lon': float(stop('Point')[0]('coordinates')[0].contents[0].split(',')[0])
+                },
+                'arrival_time': timestamp.time(),
+                'departure_time': timestamp.time(),
+                'stop_sequence': seq
             }
         )
+
+        seq += 1
     
     return stops
 
@@ -52,13 +65,15 @@ def extract_shapes(bs_data):
 
         shapes.append(
             {
-                'lat': float(shape.contents[0].split()[1]), 
-                'lon': float(shape.contents[0].split()[0]),
-                'sequence': seq
+                'shape_pt_lat': float(shape.contents[0].split()[1]), 
+                'shape_pt_lon': float(shape.contents[0].split()[0]),
+                'shape_pt_sequence': seq
             }
         )
 
         seq += 1
+    
+    shapes.sort(key= lambda e: e['shape_pt_sequence'])
 
     return shapes
 

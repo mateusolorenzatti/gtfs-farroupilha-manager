@@ -1,0 +1,17 @@
+{% load widget_tweaks %}
+
+<p> Informações Gerais </p>
+
+{% csrf_token %}
+
+{% for field in trip_form %}
+
+<div class="form-group">
+
+    <label> {{ field.label }} </label>
+
+    {{ field|add_class:'form-control' }}
+
+</div>
+
+{% endfor %}
