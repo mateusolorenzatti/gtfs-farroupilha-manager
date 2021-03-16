@@ -6,11 +6,19 @@
 
 {% for field in trip_form %}
 
-<div class="form-group">
+<div class="form-group form-inline">
 
-    <label> {{ field.label }} </label>
+    <!-- <div class="row col-12"> -->
+        
+        <!-- <div class="col-6">  -->
 
-    {{ field|add_class:'form-control' }}
+            <label> {{ field.label }} </label>
+        
+            {{ field|add_class:'form-control' }}
+            
+        <!-- </div> -->
+        
+    <!-- </div> -->
 
 </div>
 

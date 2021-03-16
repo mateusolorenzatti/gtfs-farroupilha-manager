@@ -11,9 +11,18 @@ class TripForm(forms.ModelForm):
         model = Trips
         fields = [
             'route',
-            'service_id',
             'trip_id', 
+            'service_id',
             'trip_short_name', 
             'trip_headsign',
             'shape_id',
-        ]   
+        ]
+        labels = {
+            "route": "Rota",
+            "trip_id": "ID do Trajeto (Autogerado)", 
+            "service_id": "Serviço (Autogerado)",
+            "trip_short_name": "Short Name (Opcional)", 
+            "trip_headsign": "Nome no Visor (Opcional)",
+            "shape_id": "Shape (Já associada ao Trajeto)",
+        }
+

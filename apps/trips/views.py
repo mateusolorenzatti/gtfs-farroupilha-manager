@@ -77,6 +77,8 @@ def new_trip_file(request, route_id):
             if route: temp_trip.route = route[0]
 
             context['trip_form'] = TripForm(instance = temp_trip)
+
+            context['horario_inicio'] = context['stop_times'][0]['arrival_time']
             
             context['midpoint'] = shape_midpoint_dict(context['shapes'])
 

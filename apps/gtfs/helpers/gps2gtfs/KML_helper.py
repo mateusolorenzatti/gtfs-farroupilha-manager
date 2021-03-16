@@ -11,9 +11,10 @@ def extract_stops(bs_data):
     # Extraindo as Paradas
     stops_kml = bs_data.find_all('Placemark')
     del stops_kml[-1] # Remover a última, que se refere aos Shapes
-    print('Quantidade de Paradas Encontradas:', len(stops_kml))
+    # print('Quantidade de Paradas Encontradas:', len(stops_kml))
 
     # print(stops_kml[0].prettify())
+    start_time = datetime.datetime.strptime(stops_kml[0]('TimeStamp')[0]('when')[0].contents[0], DATE_TIME_FORMAT)
 
     seq = 1
     stops = []
@@ -28,6 +29,8 @@ def extract_stops(bs_data):
 
         timestamp = datetime.datetime.strptime(stop('TimeStamp')[0]('when')[0].contents[0], DATE_TIME_FORMAT)
         
+        tdelta = timestamp - start_time
+
         stops.append(
             {
                 'stop': 
@@ -37,7 +40,8 @@ def extract_stops(bs_data):
                 },
                 'arrival_time': timestamp.time(),
                 'departure_time': timestamp.time(),
-                'stop_sequence': seq
+                'stop_sequence': seq,
+                'tdelta': tdelta
             }
         )
 
@@ -52,7 +56,7 @@ def extract_shapes(bs_data):
 
     shapes_kml = bs_data.find_all('Placemark', {'id': 'tour'})
     shapes_kml = shapes_kml[0]('gx:MultiTrack')[0]('gx:Track')[0].find_all('gx:coord')
-    print('Quantidade de Pontos de Shape encontrados:', len(shapes_kml))
+    # print('Quantidade de Pontos de Shape encontrados:', len(shapes_kml))
 
     shapes = []
     seq = 1

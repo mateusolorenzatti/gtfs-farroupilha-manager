@@ -17,7 +17,17 @@
     </div>
 
     <div class="card">
-        <p> Relação Parada / Horário: </p>
+        <div class="row">
+            <div class="col-6">
+                <p> Relação Parada / Horário: </p>
+            </div>
+            <div class="col-6">
+                <div class="form-inline">
+                    <label for="horario-inicio"> Horário de Início: </label>
+                    <input type="text" class="form-control" placeholder="Início" id="horario-inicio" value="{{ horario_inicio|date:"H:i:s" }}">
+                </div>
+            </div>
+        </div>
 
         <table class="table">
             <tbody>
@@ -26,6 +36,7 @@
                       <th> Ordem </th>
                       <th> Parada </th>
                       <th> Horário </th>
+                      <th> Diferença </th>
                     </tr>
                 </thead>
 
@@ -34,7 +45,10 @@
                 <tr>
                     <th> {{ stop.stop_sequence }} </th>
                     <td> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </td>
-                    <td> {{ stop.arrival_time|date:"H:i:s" }} </td>
+                    <td class="horario-tabela" > {{ stop.arrival_time|date:"H:i:s" }} </td>
+                    <td class="diferenca-tabela text-success" > 
+                        + {{ stop.tdelta }}
+                    </td>
                 </tr> 
 
                 {% endfor %}
@@ -43,6 +57,8 @@
         </table>
     </div>
 
+    {% load static %}
+    <script src="{% static 'js/gtfs-fm/new_trip_helper.js' %}"></script>
 </div>
 
 {% endblock %}
