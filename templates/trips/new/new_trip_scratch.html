@@ -7,58 +7,29 @@
     {% include 'basic/partials/_header.html' %}
 
     {% include 'basic/partials/_alerts.html' %}
-
-    <div class="card">
-        {% include 'trips/forms/_new_trip_form.html' %}
+    
+    <div class="card row mt-0">
+        <a id="btn-preview-mapa" class="col btn-lg btn btn-success text-white"> Mapa </a>
+        <a id="btn-dados-trip" class="col btn-lg btn"> Dados </a>
+        <a id="btn-paradas-horarios" class="col btn-lg btn"> Paradas/Horarios </a>        
     </div>
 
-    <div class="card">
+    <div id="preview-mapa" class="card card-principal">
+        <p> Veja como ficou o mapa importado: </p>
         {% include 'mapbox/_trip_map.html' %}
     </div>
 
-    <div class="card">
-        <div class="row">
-            <div class="col-6">
-                <p> Relação Parada / Horário: </p>
-            </div>
-            <div class="col-6">
-                <div class="form-inline">
-                    <label for="horario-inicio"> Horário de Início: </label>
-                    <input type="text" class="form-control" placeholder="Início" id="horario-inicio" value="{{ horario_inicio|date:"H:i:s" }}">
-                </div>
-            </div>
-        </div>
-
-        <table class="table">
-            <tbody>
-                <thead>
-                    <tr>
-                      <th> Ordem </th>
-                      <th> Parada </th>
-                      <th> Horário </th>
-                      <th> Diferença </th>
-                    </tr>
-                </thead>
-
-                {% for stop in stop_times %}
-
-                <tr>
-                    <th> {{ stop.stop_sequence }} </th>
-                    <td> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </td>
-                    <td class="horario-tabela" > {{ stop.arrival_time|date:"H:i:s" }} </td>
-                    <td class="diferenca-tabela text-success" > 
-                        + {{ stop.tdelta }}
-                    </td>
-                </tr> 
-
-                {% endfor %}
-
-            </tbody>
-        </table>
+    <div id="dados-trip" class="card card-principal d-none">
+        {% include 'trips/forms/_new_trip_form.html' %}
+    </div>
+    
+    <div id="paradas-horarios" class="card card-principal d-none">
+        {% include 'trips/new/scratch/_paradas_horarios.html' %}
     </div>
 
     {% load static %}
     <script src="{% static 'js/gtfs-fm/new_trip_helper.js' %}"></script>
+    <script src="{% static 'js/gtfs-fm/trip_scratch_manager.js' %}"></script>
 </div>
 
 {% endblock %}

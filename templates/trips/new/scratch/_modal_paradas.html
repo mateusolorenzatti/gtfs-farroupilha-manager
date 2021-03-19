@@ -1,0 +1,52 @@
+
+<div id="modais">
+    {% for stop in stop_times %}
+    
+        <div class="modal " id="modal-parada-{{stop.stop_sequence}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h5> Parada {{ stop.stop_sequence }} </h5>
+                    LAT {{ stop.stop.stop_lat }} / LNG {{ stop.stop.stop_lon }}
+    
+                    <div class="card">
+                        {% include 'mapbox/_multi_stop_map.html' %}
+                    </div>
+
+                    <p> Você tem duas Opções: </p> <br>
+
+                    <div class="btn-group m-auto" role="group">
+                        <button class="btn" type="button"> Criar esta parada  </button>
+                        <button class="btn" type="button"> Usar uma por perto </button>
+                    </div>
+
+                    <div class="card">
+                        <div class="form-group">
+                            <label for="nome" class="required"> Nome da Parada </label>
+                            <input type="text" class="form-control" id="nome_parada_{{ stop.stop_sequence }}" placeholder="Nome" required="required">
+                        </div>
+
+                        <a class="btn btn-success"> Criar </a>
+                    </div>
+                    
+                    <div class="card">
+                        <label for="gender-male" class="required">Gender</label>
+                        <div class="custom-radio">
+                        <input type="radio" name="gender" id="gender-male" value="male" required="required">
+                        <label for="gender-male"> Parada Por Perto 1 </label>
+                        </div>
+                        <div class="custom-radio">
+                        <input type="radio" name="gender" id="gender-female" value="female" required="required">
+                        <label for="gender-female"> Parada Por Perto 2 </label>
+                        </div>
+                        <div class="custom-radio">
+                        <input type="radio" name="gender" id="gender-other" value="other" required="required">
+                        <label for="gender-other"> Parada Por Perto 3 </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    
+    {% endfor %}
+</div>
