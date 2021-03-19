@@ -2,16 +2,21 @@
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
-    var map_{{ stop.stop_sequence }} = new mapboxgl.Map({
-        container: 'map-{{ stop.stop_sequence }}',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ],
-        zoom: 13    
-    });
+    
+    setTimeout(function(){
+        var map_{{ stop.stop_sequence }} = new mapboxgl.Map({
+            container: 'map-{{ stop.stop_sequence }}',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ],
+            zoom: 13    
+        });
+    
+        map_{{ stop.stop_sequence }}.on('load', () => {
+            new mapboxgl.Marker()
+                .setLngLat( [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ])
+                .addTo(map_{{ stop.stop_sequence }});
+        });
+    
+    }, {{ stop.stop_sequence }}*1000);
 
-    map_{{ stop.stop_sequence }}.on('load', () => {
-        new mapboxgl.Marker()
-            .setLngLat( [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ])
-            .addTo(this.map_{{ stop.stop_sequence }});
-    });
 </script>

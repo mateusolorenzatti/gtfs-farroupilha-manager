@@ -2,14 +2,160 @@
 {% load static %}
 {% block content %}
 
-    <div class="container p-2">
+<div class="container p-2">
 
+    {% if user.username %}
+
+        <div class="card alert alert-primary" role="alert">
+            <button class="close" data-dismiss="alert" type="button" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="alert-heading font-weight-bold"> É bom ter você de volta, {{ user.first_name }}! </h4>
+            Se você quiser acessar diretamente a Dashboard, clique  <a href="/dashboard"> aqui </a>.
+        </div>
+
+    {% endif %}
+
+    <div class="card" style="background-color: #33a047ff;">
+        <div class="row">
+            <div class="col-4">
+                <div class="text-center row">
+                    <img src="{% static 'img/ifrs_logo.svg' %}" class="img-fluid rounded">
+                </div>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="text-right mt-5">
+                    <img src="{% static 'img/logo_o.svg' %}" width="100" class="img-fluid mt-5">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
         <h4 class="text-center"> Controle dos dados de transporte público de Farroupilha - RS </h4>
         <hr>
 
+        <br>
         <div class="text-center">
+            {% if user.username %}
+            <a class="btn btn-primary" href="/dashboard"> Dashboard </a>
+            {% else %}
             <a class="btn btn-primary" href="/login"> Login </a>
+            {% endif %}
         </div>
     </div>
+
+    <div class="card">
+        <h4> Contexto do Projeto </h4>
+
+        <details class="collapse-panel mw-full">
+            <summary class="collapse-header">
+                Qual problema tentamos resolver?
+            </summary>
+            <div class="collapse-content text-justify font-size-16">
+                Coletar e exibir os dados de transporte público é uma necessidade fundamental e que influencia o
+                cotidiano das
+                pessoas.
+                <br>
+                <br>
+
+                A dificuldade em se acessar esses dados se torna mais evidente em cidades menores, onde há a
+                disponibilização
+                para o público, porém através de
+                plataformas pouco interativas e práticas.
+            </div>
+        </details>
+
+        <br>
+
+        <details class="collapse-panel mw-full">
+            <summary class="collapse-header">
+                O que é o ByBus?
+            </summary>
+            <div class="collapse-content text-justify font-size-16">
+                O município de Farroupilha fez parte de um projeto, chamado de
+                “ByBus”, que consistiu em disponibilizar
+                os dados do transporte público municipal, como rotas, itinerários e paradas em um aplicativo móvel
+                interativo.
+                Para que o projeto se tornasse real,
+                voluntários e parceiros se uniram para coletar dados de paradas, horários e rotas acompanhando os
+                motoristas nas
+                suas rotinas.
+                <br>
+                <br>
+                Após a coleta, os dados foram organizados e refinados para o padrão General Transit Feed Specification
+                (GTFS),
+                mundialmente utilizado para unificar dados de transporte público.
+                Esta adaptação permitiu o fornecimento desses dados para o aplicativo móvel Transit, que já oferece
+                recursos
+                para quem deseja utilizar o transporte público em Farroupilha.
+            </div>
+        </details>
+
+        <br>
+
+        <details class="collapse-panel mw-full">
+            <summary class="collapse-header">
+                Qual é o objetivo deste trabalho?
+            </summary>
+            <div class="collapse-content text-justify font-size-16">
+                Mesmo assim, esses dados ficam disponíveis em arquivos de texto, que podem ser enviados para
+                representantes de
+                aplicativos de trânsito a fim de que sejam aprovados para a utilização.
+                Neste contexto, o presente trabalho tem como objetivo disponibilizar estas informações de forma mais
+                dinâmica
+                através de serviços Web e oferecer uma ferramenta para que os administradores
+                possam realizar o gerenciamento dos dados, para eventuais correções, adaptações ou inclusões nas rotas
+                do
+                transporte público. O desenvolvimento foi planejado em três fases: <br><br>
+
+                <ol class="font-size-16">
+                    <li>
+                        Inicialmente, a carga dos dados brutos para um banco de dados PostgreSQL, servindo de base para
+                        manter e
+                        consultar os dados existentes.
+                    </li>
+                    <li>
+                        Em seguida, a construção de uma API REST utilizando o framework Fast API, com a linguagem
+                        Python, para
+                        tornar o acesso aos dados disponíveis e contar com uma plataforma rápida e de documentação
+                        automática.
+                        Além disso, nessa fase se adequa o desenvolvimento de uma WebApp, utilizando o framework
+                        Angular, contando com a
+                        linguagem TypeScript, para testar a usabilidade e coerência no fornecimento dos dados da API.
+                    </li>
+                    <li>
+                        Por fim, o desenvolvimento de uma ferramenta para o administrador, utilizando o framework
+                        Django, para
+                        facilitar o gerenciamento dos dados e a autenticação dos usuários.
+                    </li>
+                </ol>
+            </div>
+        </details>
+
+        <br>
+
+        <details class="collapse-panel mw-full">
+            <summary class="collapse-header">
+                Como está no momento?
+            </summary>
+            <div class="collapse-content text-justify font-size-16">
+                No momento, o projeto encontra-se na fase 3, com algumas interfaces já desenvolvidas para a gerência dos
+                dados.
+                O desenvolvimento das fases anteriores ofereceu diferentes insights sobre quais rotas seriam
+                úteis visando o desempenho, principalmente dispositivos mobile, bem como entender como funcionaria a
+                projeção
+                sobre APIs de mapas em websites e aplicativos. Para o futuro, pretende-se analisar os arquivos
+                gerados por aparelhos de coleta das coordenadas e dos trajetos a fim de criar uma importação automática
+                para a
+                base de dados, processo este que foi realizado de forma manual durante a execução do projeto ByBus.
+            </div>
+        </details>
+
+    </div>
+</div>
+
+</div>
 
 {% endblock %}

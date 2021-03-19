@@ -5,86 +5,55 @@
     <div class="col-6">
         <div class="form-inline">
             <label for="horario-inicio"> Horário de Início: </label>
-            <input type="text" class="form-control" placeholder="Início" id="horario-inicio" value="{{ horario_inicio|date:"H:i:s" }}">
+            <input type="text" class="form-control" placeholder="Início" id="horario-inicio"
+                value="{{ horario_inicio|date:" H:i:s" }}">
         </div>
     </div>
 </div>
 
 
 <div class="table">
-    <div class="row-fluid">
-        <div class="span3">Status</div>
-        <div class="span3">Ordem</div>
-        <div class="span3">Parada</div>
-        <div class="span3">Horário</div>
-        <div class="span3">Diferença</div>
-        <div class="span3">Ações</div>
+    <div class="row my-10">
+        <div class="col-2">Status</div>
+        <div class="col-1">Ordem</div>
+        <div class="col-4">Parada</div>
+        <div class="col-2">Horário</div>
+        <div class="col-1">Diferença</div>
+        <div class="col-2 text-right">Ações</div>
     </div>
-    
-    {% for stop in stop_times %}
-        
-            <div class="row-fluid accordion-toggle" data-toggle="collapse" data-target="#collapse-{{ stop.stop_sequence }}">
-				<div class="span3"> <span class="badge badge-secondary"> Pendente </span> </div>
-				<div class="span3"> {{ stop.stop_sequence }} </div>
-				<div class="span3"> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </div>
-				<div class="span3 horario-tabela"> {{ stop.arrival_time|date:"H:i:s" }} </div>
-				<div class="span3 diferenca-tabela"> + {{ stop.tdelta }} </div>
-				<div class="span3"> 
-                    <div class="float-right">
-                        <a class="btn btn-success text-white" href="#">
-                            <i class="fa fa-cog" aria-hidden="true"></i>
-                        </a>
-    
-                        <a class="btn">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
+    <br>
+
+    <div class="collapse-group mw-full">
+        {% for stop in stop_times %}
+
+        <details class="collapse-panel">
+
+            <summary class="collapse-header without-arrow">
+                <div class="row mt-5">
+                    <div class="col-2"> <span class="badge badge-secondary"> Pendente </span> </div>
+                    <div class="col-1"> {{ stop.stop_sequence }} </div>
+                    <div class="col-4"> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </div>
+                    <div class="col-2 horario-tabela"> {{ stop.arrival_time|date:"H:i:s" }} </div>
+                    <div class="col-1 diferenca-tabela"> + {{ stop.tdelta }} </div>
+                    <div class="col-2">
+                        <div class="float-right">
+                            <a class="btn btn-success text-white accordion-toggle">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-			</div>
-			
-            <div id="collapse-{{ stop.stop_sequence }}" class="row-fluid collapse in">
-				<div class="span18">
-                    <div class="">
-                        <h5> Parada {{ stop.stop_sequence }} </h5>
-                        LAT {{ stop.stop.stop_lat }} / LNG {{ stop.stop.stop_lon }}
-                        
-                        {# include 'mapbox/_multi_stop_map.html' #} <p> MAPA </p>
-                        
-                        <p> Você tem duas Opções: </p> <br>
-                        
-                        <div class="btn-group m-auto" role="group">
-                            <button class="btn" type="button"> Criar esta parada  </button>
-                            <button class="btn" type="button"> Usar uma por perto </button>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="form-group">
-                                <label for="nome" class="required"> Nome da Parada </label>
-                                <input type="text" class="form-control" id="nome_parada_{{ stop.stop_sequence }}" placeholder="Nome" required="required">
-                            </div>
-                            
-                            <a class="btn btn-success"> Criar </a>
-                        </div>
-                        
-                        <div class="card">
-                            <label for="gender-male" class="required">Gender</label>
-                            <div class="custom-radio">
-                                <input type="radio" name="gender" id="gender-male" value="male" required="required">
-                                <label for="gender-male"> Parada Por Perto 1 </label>
-                            </div>
-                            <div class="custom-radio">
-                                <input type="radio" name="gender" id="gender-female" value="female" required="required">
-                                <label for="gender-female"> Parada Por Perto 2 </label>
-                            </div>
-                            <div class="custom-radio">
-                                <input type="radio" name="gender" id="gender-other" value="other" required="required">
-                                <label for="gender-other"> Parada Por Perto 3 </label>
-                            </div>
-                        </div>
-                    </div>    
-				</div>
-			</div>
-        
+            </summary>
+
+            <div class="collapse-content">
+                <div>
+                    <div class="col-12">
+                        {% include 'trips/new/scratch/_modal_paradas.html' %}
+                    </div>
+                </div>
+            </div>
+        </details>
         {% endfor %}
+    </div>
 
 </div>
