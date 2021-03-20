@@ -17,11 +17,18 @@
     </div>
 
     <div id="nova-parada-{{stop.stop_sequence}}" class="content d-none">
-        <div class="form-inline">
+        <form id="form_parada_{{ stop.stop_sequence }}" class="form-inline">
+            {% csrf_token %}
+
             <label for="nome" class=""> Descrição para a Parada </label>
             <input type="text" class="form-control" id="nome_parada_{{ stop.stop_sequence }}" placeholder="Descrição">
-            <a class="btn btn-success"> Criar </a>
-        </div>
+            
+            <input type="hidden" id="stop_lat_{{ stop.stop_sequence }}" name="stop_lat" value="{{ stop.stop.stop_lat }}">
+            <input type="hidden" id="stop_lon_{{ stop.stop_sequence }}" name="stop_lon" value="{{ stop.stop.stop_lon }}">
+            <input type="hidden" id="stop_timezone_{{ stop.stop_sequence }}" name="stop_timezone" value="America/Sao_Paulo">
+
+            <input type="submit" id="btn_criar_parada_{{ stop.stop_sequence }}" class="btn btn-success text-white" value="Criar">
+        </form>
     </div>
 
     <div id="esolhe-paradas-{{stop.stop_sequence}}" class="content d-none">
@@ -54,6 +61,30 @@
             $('#nova-parada-{{stop.stop_sequence}}').addClass(CLASSE_HIDE);
             $('#esolhe-paradas-{{stop.stop_sequence}}').removeClass(CLASSE_HIDE);
         });
+    });
+
+    $('#form_parada_{{ stop.stop_sequence }}').submit( (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Verifica se o nome está preenchido
+        let nome = $('#nome_parada_{{ stop.stop_sequence }}').val();
+
+        if(!nome){
+            alertError('Parada sem Descrição?', "Preencha o campo de Descrição para prosseguir");
+            return;
+        }
+
+        dadosParada = {
+            'stop_name': nome,
+            'stop_lat': {{ stop.stop.stop_lat }},
+            'stop_lon': {{ stop.stop.stop_lon }},
+            'stop_timezone': 'America/Sao_Paulo'
+        }
+
+        console.log(dadosParada);
+
+        enviarRequestNovaParada(dadosParada, {{ {{stop.stop_sequence}} }});
     });
 
 </script>

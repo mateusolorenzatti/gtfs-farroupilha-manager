@@ -13,11 +13,7 @@ $(function() {
         if (isNaN(horario_inicio.getTime())) {  
             $('#horario-inicio').val(horario_inicio_fixo);
 
-            halfmoon.initStickyAlert({
-                content: "Voltei para o horário que tínhamos no inicio da sessão.",
-                title: "Horário Inválido! ",
-                alertType: "alert-danger",
-            });
+            alertError("Horário Inválido! ", "Voltei para o horário que tínhamos no inicio da sessão.");
 
             return;
         }

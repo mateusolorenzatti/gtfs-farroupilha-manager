@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-from  django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 
+import json
 import unidecode
 
 from apps.stops.models import Stops
@@ -128,3 +132,29 @@ def delete_stop(request, stop_id):
 
     return redirect('stops:index')     
 
+@ensure_csrf_cookie
+def new_stop_api(request):
+    if not request.user.username:
+        return JsonResponse({'Erro': 'Não autorizado' }, status=403)
+
+    if request.method == 'POST':
+
+        last_stop = Stops.objects.all().order_by('-stop_id')[0]
+        new_stop = Stops(
+            stop_id = last_stop.stop_id + 1, 
+            stop_name = request.POST.get('stop_name'),
+            stop_timezone = request.POST.get('stop_timezone'), 
+            stop_lon = request.POST.get('stop_lon'), 
+            stop_lat = request.POST.get('stop_lat')
+        )
+
+        new_stop.save(force_insert=True)
+        
+        return JsonResponse({
+            'stop': { 
+                'stop_id': new_stop.stop_id,
+                'stop_name': new_stop.stop_name
+            }
+        })
+
+    return JsonResponse({ 'Erro': 'Aceitamos apenas POST' })
