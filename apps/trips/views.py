@@ -9,6 +9,7 @@ from .forms import GPS_file_form, TripForm
 from apps.gtfs.helpers.coordinates import shape_midpoint, shape_midpoint_dict
 from apps.gtfs.helpers.handle_uploads import handle_uploaded_file
 from apps.gtfs.helpers.gps2gtfs.KML_helper import KML
+from apps.stops.helpers import paradas_proximas
 
 from apps.trips.models import Trips
 from apps.routes.models import Routes
@@ -83,6 +84,9 @@ def new_trip_file(request, route_id):
             context['midpoint'] = shape_midpoint_dict(context['shapes'])
 
             context['title'] = 'Nova Trip - Formulário de Validação'
+
+            for stop in context['stop_times']:
+                stop['paradas_proximas'] = paradas_proximas(stop['stop']['stop_lat'], stop['stop']['stop_lon'])
 
             return render(request,'trips/new/new_trip_scratch.html', context)
 

@@ -20,7 +20,7 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 } 
 
-function enviarRequestNovaParada(dadosParada, paradaSeq){
+function enviarRequestNovaParada(dadosParada, paradaSeq, sucesso){
     
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
@@ -30,9 +30,8 @@ function enviarRequestNovaParada(dadosParada, paradaSeq){
         }
     });
 
-    $.post("/stops/api/new", dadosParada)
-        .done(function(data) {
-            console.log(data);
-        });
-
+    return $.post("/stops/api/new", dadosParada)
+                .done(function(data) {
+                    sucesso(data);
+                });
 }

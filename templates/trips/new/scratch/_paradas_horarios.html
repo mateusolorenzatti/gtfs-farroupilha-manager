@@ -15,7 +15,6 @@
     </div>
 </div>
 
-
 <div class="table">
     <div class="row my-10">
         <div class="col-2">Status</div>
@@ -30,13 +29,13 @@
     <div class="collapse-group mw-full">
         {% for stop in stop_times %}
 
-        <details class="collapse-panel">
+        <details id="collapse-panel-{{ stop.stop_sequence }}" class="collapse-panel">
 
             <summary class="collapse-header without-arrow">
                 <div class="row mt-5">
-                    <div class="col-2"> <span class="badge badge-secondary"> Pendente </span> </div>
+                    <div class="col-2"> <span id="status-parada-{{ stop.stop_sequence }}" class="badge badge-secondary"> Pendente </span> </div>
                     <div class="col-1"> {{ stop.stop_sequence }} </div>
-                    <div class="col-4"> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </div>
+                    <div id="parada-nome-{{ stop.stop_sequence }}" class="col-4"> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </div>
                     <div class="col-2 horario-tabela"> {{ stop.arrival_time|date:"H:i:s" }} </div>
                     <div class="col-1 diferenca-tabela"> + {{ stop.tdelta }} </div>
                     <div class="col-2">

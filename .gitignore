@@ -117,3 +117,4 @@ GitHub.sublime-settings
 
 # Arquivos do Django / Uploads
 apps/trips/helpers/data/*
+*.kml

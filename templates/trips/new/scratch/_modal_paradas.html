@@ -1,50 +1,72 @@
 <div class="content">
     <h5 class="text-center"> Parada {{ stop.stop_sequence }} LAT {{ stop.stop.stop_lat }} / LNG {{ stop.stop.stop_lon }}
     </h5>
+    <hr>
 
-    <div class="card">
-        {% include 'mapbox/_multi_stop_map.html' %}
-    </div>
+    <div class="row">
 
-    <div class="text-center">
-        <p> Você tem duas Opções: </p> <br>
-        <div class="btn-group btn-primary m-auto" role="group">
-            <button id="btn-nova-parada-{{stop.stop_sequence}}" class="btn btn-primary" type="button"> Criar esta parada
-            </button>
-            <button id="btn-esolhe-paradas-{{stop.stop_sequence}}" class="btn btn-primary" type="button"> Usar uma por
-                perto </button>
+        <div class="col-4">
+            {% include 'mapbox/_multi_stop_map.html' %}
         </div>
-    </div>
 
-    <div id="nova-parada-{{stop.stop_sequence}}" class="content d-none">
-        <form id="form_parada_{{ stop.stop_sequence }}" class="form-inline">
-            {% csrf_token %}
-
-            <label for="nome" class=""> Descrição para a Parada </label>
-            <input type="text" class="form-control" id="nome_parada_{{ stop.stop_sequence }}" placeholder="Descrição">
+        <div class="col-8">
+            <div class="text-center">
+                <p> Você tem duas Opções: </p> <br>
+                <div class="btn-group btn-primary m-auto" role="group">
+                    <button id="btn-nova-parada-{{stop.stop_sequence}}" class="btn btn-primary" type="button"> Criar esta parada
+                    </button>
+                    <button id="btn-esolhe-paradas-{{stop.stop_sequence}}" class="btn btn-primary" type="button"> Usar uma por perto </button>
+                </div>
+            </div>
+        
+            <div id="nova-parada-{{stop.stop_sequence}}" class="content d-none">
+                <form id="form_parada_{{ stop.stop_sequence }}" class="form-inline">
+                    {% csrf_token %}
+        
+                    <label for="nome" class=""> Descrição para a Parada </label>
+                    <input type="text" class="form-control" id="nome_parada_{{ stop.stop_sequence }}" placeholder="Descrição">
+        
+                    <input type="hidden" id="stop_lat_{{ stop.stop_sequence }}" name="stop_lat"
+                        value="{{ stop.stop.stop_lat }}">
+                    <input type="hidden" id="stop_lon_{{ stop.stop_sequence }}" name="stop_lon"
+                        value="{{ stop.stop.stop_lon }}">
+                    <input type="hidden" id="stop_timezone_{{ stop.stop_sequence }}" name="stop_timezone"
+                        value="America/Sao_Paulo">
+        
+                    <input type="submit" id="btn_criar_parada_{{ stop.stop_sequence }}" class="btn btn-success text-white"
+                        value="Criar">
+                </form>
+            </div>
+        
+            <div id="esolhe-paradas-{{stop.stop_sequence}}" class="content d-none">
+                <label> Escolha a Parada: </label>
+        
+                {% if stop.paradas_proximas %}
+                    {% for parada_proxima in stop.paradas_proximas %}
             
-            <input type="hidden" id="stop_lat_{{ stop.stop_sequence }}" name="stop_lat" value="{{ stop.stop.stop_lat }}">
-            <input type="hidden" id="stop_lon_{{ stop.stop_sequence }}" name="stop_lon" value="{{ stop.stop.stop_lon }}">
-            <input type="hidden" id="stop_timezone_{{ stop.stop_sequence }}" name="stop_timezone" value="America/Sao_Paulo">
+                        <div class="custom-radio m-10">
+                            <input type="radio" name="parada-{{ stop.stop_sequence }}" id="parada-{{ parada_proxima.stop_id }}"
+                                value="{{ parada_proxima.stop_id }} - {{ parada_proxima.stop_name }} ">
+                            <label for="parada-{{ parada_proxima.stop_id }}"> {{ parada_proxima.stop_id }} - {{ parada_proxima.stop_name }} </label>
+                        </div>
+            
+                    {% endfor %}
+            
+                    <br>
+                    <div class="text-center">
+                        <a id="escolha-paradas-{{ stop.stop_sequence }}" class="btn btn-success text-white"> Salvar </a>
+                    </div>
+        
+                {% else %}
+                    <p class="text-center text-muted"> Infelizmente não existem paradas por perto. Crie uma na outra opção. </p>
 
-            <input type="submit" id="btn_criar_parada_{{ stop.stop_sequence }}" class="btn btn-success text-white" value="Criar">
-        </form>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
-    <div id="esolhe-paradas-{{stop.stop_sequence}}" class="content d-none">
-        <label> Escolha a Parada: </label>
-        <div class="custom-radio m-10">
-            <input type="radio" name="gender" id="gender-male" value="male" required="required">
-            <label for="gender-male"> Parada Por Perto 1 </label>
-        </div>
-        <div class="custom-radio m-10">
-            <input type="radio" name="gender" id="gender-female" value="female" required="required">
-            <label for="gender-female"> Parada Por Perto 2 </label>
-        </div>
-        <div class="custom-radio m-10">
-            <input type="radio" name="gender" id="gender-other" value="other" required="required">
-            <label for="gender-other"> Parada Por Perto 3 </label>
-        </div>
+    <div id="data-stop-{{stop.stop_sequence}}" class="json-data d-none">
+
     </div>
 </div>
 
@@ -63,14 +85,14 @@
         });
     });
 
-    $('#form_parada_{{ stop.stop_sequence }}').submit( (event) => {
+    $('#form_parada_{{ stop.stop_sequence }}').submit((event) => {
         event.preventDefault();
         event.stopPropagation();
 
         // Verifica se o nome está preenchido
         let nome = $('#nome_parada_{{ stop.stop_sequence }}').val();
 
-        if(!nome){
+        if (!nome) {
             alertError('Parada sem Descrição?', "Preencha o campo de Descrição para prosseguir");
             return;
         }
@@ -84,7 +106,47 @@
 
         console.log(dadosParada);
 
-        enviarRequestNovaParada(dadosParada, {{ {{stop.stop_sequence}} }});
+        let dados = enviarRequestNovaParada(dadosParada, {{ stop.stop_sequence }},
+            (data) => {
+                console.log(data);
+
+                novoObj = {
+                    'stop_id': data['stop']['stop_id'],
+                    'stop_sequence': {{ stop.stop_sequence }}
+                }
+
+                $('#data-stop-{{stop.stop_sequence}}').html(JSON.stringify( novoObj ));
+
+                $('#collapse-panel-{{ stop.stop_sequence }}').removeAttr("open");
+                $('#status-parada-{{ stop.stop_sequence }}').removeClass("badge-secondary").addClass("badge-success text-white").html("Pronto");
+                $('#parada-nome-{{ stop.stop_sequence }}').html(data['stop']['stop_name']);
+
+                alertSuccess('Tudo certo!', "A parada {{stop.stop_sequence}} foi configurada com sucesso!");
+            }
+        );
+    });
+
+    $('#escolha-paradas-{{ stop.stop_sequence }}').click(() => {
+
+        let stop = $('input[name="parada-{{ stop.stop_sequence }}"]:checked').val();
+        
+        if(!stop){
+            alertError('Selecione uma Parada!', "Selecione uma dessas paradas, ou crie uma nova.");
+            return;
+        }
+
+        novoObj = {
+            'stop_id': stop.split(' - ')[0],
+            'stop_sequence': {{ stop.stop_sequence }}
+        }
+
+        $('#data-stop-{{stop.stop_sequence}}').html(JSON.stringify( novoObj ));
+
+        $('#collapse-panel-{{ stop.stop_sequence }}').removeAttr("open");
+        $('#status-parada-{{ stop.stop_sequence }}').removeClass("badge-secondary").addClass("badge-success text-white").html("Pronto");
+        $('#parada-nome-{{ stop.stop_sequence }}').html(stop);
+
+        alertSuccess('Tudo certo!', "A parada {{stop.stop_sequence}} foi configurada com sucesso!");
     });
 
 </script>

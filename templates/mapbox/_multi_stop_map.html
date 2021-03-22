@@ -1,5 +1,12 @@
-<div id='map-{{ stop.stop_sequence }}' style='width: 100%; height: 200px;'></div>
 
+
+<div id="map-{{ stop.stop_sequence }}" style="width: 100%; height: 300px;" class="d-none">
+</div>
+
+<div id="info-map-{{ stop.stop_sequence }}" class="alert alert-secondary text-center"> 
+    Aguarde alguns segundos até que o mapa seja carregado.
+</div>
+ 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibWF0ZXVzb2xvcmVuemF0dGkiLCJhIjoiY2toODEzd3dkMDZodTJ5cGY4OGI1eXEwMSJ9.J5MvepB63To_4Pr-51qMXQ';
     
@@ -8,14 +15,103 @@
             container: 'map-{{ stop.stop_sequence }}',
             style: 'mapbox://styles/mapbox/streets-v11',
             center: [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ],
-            zoom: 13    
+            zoom: 17    
         });
     
         map_{{ stop.stop_sequence }}.on('load', () => {
-            new mapboxgl.Marker()
-                .setLngLat( [ {{ stop.stop.stop_lon }} , {{ stop.stop.stop_lat }} ])
-                .addTo(map_{{ stop.stop_sequence }});
+
+            map_{{ stop.stop_sequence }}.addSource('parada_principal', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [ {{stop.stop.stop_lon}} , {{stop.stop.stop_lat}} ]
+                            }
+                        }
+                    ]
+                }
+            });
+
+            map_{{ stop.stop_sequence }}.addLayer({
+                'id': 'parada_principal_point',
+                'type': 'circle',
+                'source': 'parada_principal',
+                'paint': {
+                    'circle-radius': 12,
+                    'circle-color': '#3887be'
+                }
+            });
+
+            let textos = {
+                'type': 'FeatureCollection',
+                'features': []
+            }
+            
+            {% for parada_proxima in stop.paradas_proximas %}
+            
+                map_{{ stop.stop_sequence }}.addSource('parada_proxima_{{parada_proxima.stop_id}}', {
+                    'type': 'geojson',
+                    'data': { 
+                        'type': 'FeatureCollection',
+                        'features': [
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [ {{parada_proxima.stop_lon}} , {{parada_proxima.stop_lat}} ]
+                                }
+                            }
+                        ]
+                    }
+                });
+
+                map_{{ stop.stop_sequence }}.addLayer({
+                    'id': 'parada_proxima_{{parada_proxima.stop_id}}_point',
+                    'type': 'circle',
+                    'source': 'parada_proxima_{{parada_proxima.stop_id}}',
+                    'paint': {
+                        'circle-radius': 10,
+                        'circle-color': '#e31612'
+                    }
+                });
+
+                textos.features.push({
+                    'type': 'Feature',
+                    'properties': {
+                        'description': "Parada {{parada_proxima.stop_id}}",
+                    },
+                    'geometry': {
+                        'type': 'Point',
+                        'coordinates': [ {{parada_proxima.stop_lon}} , {{parada_proxima.stop_lat}} ]
+                    }
+                });
+            
+            {% endfor %}
+
+            map_{{ stop.stop_sequence }}.addSource('textos', {
+                'type': 'geojson',
+                'data': textos
+            });
+
+            map_{{ stop.stop_sequence }}.addLayer({
+                'id': 'poi-labels',
+                'type': 'symbol',
+                'source': 'textos',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+                    'text-radial-offset': 1,
+                    'text-justify': 'auto'
+                }
+            });
         });
+
+        $('#map-{{ stop.stop_sequence }}').removeClass('d-none');
+        $('#info-map-{{ stop.stop_sequence }}').addClass('d-none')
     
     }, {{ stop.stop_sequence }}*1000);
 

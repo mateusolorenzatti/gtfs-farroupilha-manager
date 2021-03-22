@@ -3,8 +3,7 @@ function alertSuccess(titulo, conteudo){
     halfmoon.initStickyAlert({
         title: titulo,
         content: conteudo,
-        alertType: "alert-success",
-        fillType: "filled-lm"
+        alertType: "alert-success"
       });
 }
 
