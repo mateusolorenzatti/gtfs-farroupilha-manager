@@ -2,6 +2,13 @@
 {% load static %}
 <script src="{% static 'js/gtfs-fm/new_stop_api.js' %}"></script>
 
+<div id="div-salvar-tudo" class="content pt-0 d-none"> 
+    <a id="btn-salvar-tudo" class="btn btn-block btn-success text-white mt-0">
+        <i class="fa fa-save mr-5" aria-hidden="true"></i> Salvar tudo
+    </a>
+    <br>
+</div>
+
 <div class="row">
     <div class="col-6">
         <p> Relação Parada / Horário: </p>
@@ -33,7 +40,7 @@
 
             <summary class="collapse-header without-arrow">
                 <div class="row mt-5">
-                    <div class="col-2"> <span id="status-parada-{{ stop.stop_sequence }}" class="badge badge-secondary"> Pendente </span> </div>
+                    <div class="col-2"> <span id="status-parada-{{ stop.stop_sequence }}" class="badge badge-secondary status-parada"> Pendente </span> </div>
                     <div class="col-1"> {{ stop.stop_sequence }} </div>
                     <div id="parada-nome-{{ stop.stop_sequence }}" class="col-4"> {{ stop.stop.stop_lat }} {{ stop.stop.stop_lon }} </div>
                     <div class="col-2 horario-tabela"> {{ stop.arrival_time|date:"H:i:s" }} </div>

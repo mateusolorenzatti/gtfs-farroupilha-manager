@@ -115,13 +115,7 @@
                     'stop_sequence': {{ stop.stop_sequence }}
                 }
 
-                $('#data-stop-{{stop.stop_sequence}}').html(JSON.stringify( novoObj ));
-
-                $('#collapse-panel-{{ stop.stop_sequence }}').removeAttr("open");
-                $('#status-parada-{{ stop.stop_sequence }}').removeClass("badge-secondary").addClass("badge-success text-white").html("Pronto");
-                $('#parada-nome-{{ stop.stop_sequence }}').html(data['stop']['stop_name']);
-
-                alertSuccess('Tudo certo!', "A parada {{stop.stop_sequence}} foi configurada com sucesso!");
+                concluiStop({{stop.stop_sequence}}, novoObj, data['stop']['stop_id'] + ' - ' + data['stop']['stop_name']);
             }
         );
     });
@@ -140,13 +134,7 @@
             'stop_sequence': {{ stop.stop_sequence }}
         }
 
-        $('#data-stop-{{stop.stop_sequence}}').html(JSON.stringify( novoObj ));
-
-        $('#collapse-panel-{{ stop.stop_sequence }}').removeAttr("open");
-        $('#status-parada-{{ stop.stop_sequence }}').removeClass("badge-secondary").addClass("badge-success text-white").html("Pronto");
-        $('#parada-nome-{{ stop.stop_sequence }}').html(stop);
-
-        alertSuccess('Tudo certo!', "A parada {{stop.stop_sequence}} foi configurada com sucesso!");
+        concluiStop({{stop.stop_sequence}}, novoObj, stop);
     });
 
 </script>
