@@ -23,3 +23,22 @@
 </div>
 
 {% endfor %}
+
+<div id="data-shapes" class="d-none"> 
+    [
+    {% for shape in shapes %}
+        { 
+            "shape_pt_lon": {{ shape.shape_pt_lon }},
+            "shape_pt_lat": {{ shape.shape_pt_lat }},
+            "shape_pt_sequence": {{ shape.shape_pt_sequence }},
+            "shape_id": "{{ trip.shape_id }}"
+        }
+        
+        {% if not shape.shape_pt_sequence == last_shape %}
+        ,
+        {% endif %}
+
+
+    {% endfor %}
+    ]
+</div>

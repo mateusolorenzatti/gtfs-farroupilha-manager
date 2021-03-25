@@ -100,12 +100,15 @@ function modoParadasHorarios() {
     $('#preview-mapa').addClass(CLASSE_HIDE);
     $('#dados-trip').addClass(CLASSE_HIDE);
     $('#paradas-horarios').removeClass(CLASSE_HIDE);
-
+    
     $('#btn-preview-mapa').removeClass(CLASSE_BTN);
     $('#btn-dados-trip').removeClass(CLASSE_BTN);
     $('#btn-paradas-horarios').addClass(CLASSE_BTN);
 }
 
 function salvarTudo(){
-    console.log("Salvando ...")
+    $('#tela-scratch').addClass(CLASSE_HIDE);
+    $('#tela-finaliza').removeClass(CLASSE_HIDE);
+
+    let shapes = JSON.parse($('#data-shapes').text());    
 }

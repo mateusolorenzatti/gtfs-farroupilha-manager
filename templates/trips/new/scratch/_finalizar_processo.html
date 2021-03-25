@@ -1,0 +1,53 @@
+{% load static %}
+
+
+<div class="content">
+
+    <div id="progresso-criacao-shapes" class="card row"> 
+
+        <div class="col-2"></div>
+        <div class="col-2 text-center">
+            <img src="{% static 'img/loading_green.gif' %}" width="50" height="50" class="float-center">
+        </div>
+        <div class="col-6 text-center">
+            <h4> Criando o Shape do Trajeto </h4>
+        </div>
+        <div class="col-2"></div>
+
+    </div>
+
+    <div id="progresso-criacao-trip" class="card row"> 
+        <div class="col-2"></div>
+        <div class="col-2 text-center">
+            <img src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
+        </div>
+        <div class="col-6 text-center">
+            <h4> Cadastrando os dados do Trajeto </h4>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    
+    <div id="progresso-criacao-stop-times" class="card row"> 
+        <div class="col-2"></div>
+        <div class="col-2 text-center">
+            <img src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
+        </div>
+        <div class="col-6 text-center">
+            <h4> Criando a grade de horários </h4>
+        </div>
+        <div class="col-2"></div>
+    </div>   
+
+    <div id="botoes-navegacao" class="card text-center"> 
+        <h4 class=""> Trip criada com sucesso! </h4>
+        <br>
+
+        <a class="btn btn-success text-white">
+            Voltar para a Home
+        </a>
+        <a class="btn btn-success text-white">
+            Visualizar a nova Trip
+        </a>
+    </div>  
+
+</div>

@@ -61,6 +61,8 @@ def new_trip_file(request, route_id):
 
             new_file = handle_uploaded_file(request.FILES.get('file'), request.user)
 
+            last_shape = Shapes.objects.filter(shape_id__startswith='p_').order_by('-shape_id')[0].shape_id
+
             context = {}
             if filename.endswith('.kml'):
                 context['stop_times'], context['shapes'] = KML(new_file)
@@ -70,7 +72,7 @@ def new_trip_file(request, route_id):
             temp_trip = Trips(
                 trip_id = new_trip_id,
                 service_id = 'c_5988_b_6309_d_31',
-                # shape_id = # Definir o ID da Shape gerada
+                shape_id = 'p_{}'.format(int(last_shape[2:]) + 1)
             )
             
             route = Routes.objects.filter(route_id = route_id)
@@ -78,6 +80,8 @@ def new_trip_file(request, route_id):
             if route: temp_trip.route = route[0]
 
             context['trip_form'] = TripForm(instance = temp_trip)
+            context['trip'] = temp_trip
+            context['last_shape'] = context['shapes'][-1]['shape_pt_sequence']
 
             context['horario_inicio'] = context['stop_times'][0]['arrival_time']
             

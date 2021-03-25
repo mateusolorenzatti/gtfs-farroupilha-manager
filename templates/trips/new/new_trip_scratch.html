@@ -4,29 +4,36 @@
 
 <div class="container">
 
-    {% include 'basic/partials/_header.html' %}
-
-    {% include 'basic/partials/_alerts.html' %}
+    <div id='tela-scratch'> 
+        {% include 'basic/partials/_header.html' %}
+        
+        {% include 'basic/partials/_alerts.html' %}
+        
+        <div class="card row mt-0">
+            <a id="btn-preview-mapa" class="col btn-lg btn btn-success text-white"> Mapa </a>
+            <a id="btn-dados-trip" class="col btn-lg btn"> Dados </a>
+            <a id="btn-paradas-horarios" class="col btn-lg btn"> Paradas/Horarios </a>        
+        </div>
+        
+        <div id="preview-mapa" class="card card-principal">
+            <p> Veja como ficou o mapa importado: </p>
+            {% include 'mapbox/_trip_map.html' %}
+        </div>
+        
+        <div id="dados-trip" class="card card-principal d-none">
+            {% include 'trips/forms/_new_trip_form.html' %}
+        </div>
+        
+        <div id="paradas-horarios" class="card card-principal d-none">
+            {% include 'trips/new/scratch/_paradas_horarios.html' %}
+        </div>
+        
+    </div>
     
-    <div class="card row mt-0">
-        <a id="btn-preview-mapa" class="col btn-lg btn btn-success text-white"> Mapa </a>
-        <a id="btn-dados-trip" class="col btn-lg btn"> Dados </a>
-        <a id="btn-paradas-horarios" class="col btn-lg btn"> Paradas/Horarios </a>        
-    </div>
-
-    <div id="preview-mapa" class="card card-principal">
-        <p> Veja como ficou o mapa importado: </p>
-        {% include 'mapbox/_trip_map.html' %}
-    </div>
-
-    <div id="dados-trip" class="card card-principal d-none">
-        {% include 'trips/forms/_new_trip_form.html' %}
+    <div id='tela-finaliza' class="d-none"> 
+        {% include 'trips/new/scratch/_finalizar_processo.html' %}
     </div>
     
-    <div id="paradas-horarios" class="card card-principal d-none">
-        {% include 'trips/new/scratch/_paradas_horarios.html' %}
-    </div>
-
     {% load static %}
     <script src="{% static 'js/gtfs-fm/new_trip_helper.js' %}"></script>
     
