@@ -35,3 +35,35 @@ function enviarRequestNovaParada(dadosParada, paradaSeq, sucesso){
                     sucesso(data);
                 });
 }
+
+function enviarRequestShapes(shapes, sucesso){
+    
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
+    return $.post("/shapes/api/new_list", { 'shapes' : shapes } )
+                .done(function(data) {
+                    sucesso(data);
+                });
+}
+
+function enviarRequestTrip(trip, sucesso){
+    
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
+    return $.post("/trips/api/new", trip )
+                .done(function(data) {
+                    sucesso(data);
+                });
+}

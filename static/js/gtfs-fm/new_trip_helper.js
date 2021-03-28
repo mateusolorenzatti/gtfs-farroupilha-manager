@@ -3,6 +3,8 @@ var CLASSE_HIDE = "d-none";
 var CLASSE_BTN = "btn-success text-white";
 var horario_inicio_fixo = $('#horario-inicio').val();
 
+var SUCCESS_IMG = "/static/img/sucesso.svg";
+
 var DEBUG_MODE = false;
 
 $(function () {
@@ -67,11 +69,11 @@ function concluiStop(parada_seq, parada_obj, parada_desc) {
     alertSuccess('Tudo certo!', "A parada " + parada_seq + " foi configurada com sucesso!");
     let pronto = true;
 
-    $(".status-parada").each( function( index, element ){
-        if ($( this ).text().includes("Pendente") ) pronto = false;
+    $(".status-parada").each(function (index, element) {
+        if ($(this).text().includes("Pendente")) pronto = false;
     });
 
-    if ( !pronto ) return;
+    if (!pronto) return;
 
     $('#div-salvar-tudo').removeClass("d-none");
 }
@@ -90,7 +92,7 @@ function modoDadosTrip() {
     $('#preview-mapa').addClass(CLASSE_HIDE);
     $('#dados-trip').removeClass(CLASSE_HIDE);
     $('#paradas-horarios').addClass(CLASSE_HIDE);
-    
+
     $('#btn-preview-mapa').removeClass(CLASSE_BTN);
     $('#btn-dados-trip').addClass(CLASSE_BTN);
     $('#btn-paradas-horarios').removeClass(CLASSE_BTN);
@@ -100,15 +102,44 @@ function modoParadasHorarios() {
     $('#preview-mapa').addClass(CLASSE_HIDE);
     $('#dados-trip').addClass(CLASSE_HIDE);
     $('#paradas-horarios').removeClass(CLASSE_HIDE);
-    
+
     $('#btn-preview-mapa').removeClass(CLASSE_BTN);
     $('#btn-dados-trip').removeClass(CLASSE_BTN);
     $('#btn-paradas-horarios').addClass(CLASSE_BTN);
 }
 
-function salvarTudo(){
+function salvarTudo() {
     $('#tela-scratch').addClass(CLASSE_HIDE);
     $('#tela-finaliza').removeClass(CLASSE_HIDE);
 
-    let shapes = JSON.parse($('#data-shapes').text());    
+    let shapes = $('#data-shapes').text();
+
+    console.log('Enviando Shapes');
+
+    enviarRequestShapes(shapes, (data) => {
+        setTimeout(() => {
+
+            $('#imagem-progresso-criacao-shapes').attr("src", SUCCESS_IMG);
+            $('#progresso-criacao-trip').removeClass(CLASSE_HIDE);
+
+            // Coletar dados do form da Trip
+            trip = {
+                route: $('#id_route').val(),
+                trip_id: $('#id_trip_id').val(),
+                service_id: $('#id_service_id').val(),
+                trip_short_name: $('#id_trip_short_name').val(),
+                trip_headsign: $('#id_trip_headsign').val(),
+                shape_id: $('#id_shape_id').val()
+            };
+
+            enviarRequestTrip(trip, (data) => {
+                setTimeout(() => {
+                    $('#imagem-progresso-criacao-trip').attr("src", SUCCESS_IMG);
+                    $('#progresso-criacao-stop-times').removeClass(CLASSE_HIDE);
+                    
+                }, 2000);
+            });
+        }, 2000);
+    });
+
 }

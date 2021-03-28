@@ -3,6 +3,8 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import HttpResponse, JsonResponse
 
 from .forms import GPS_file_form, TripForm
 
@@ -104,3 +106,27 @@ def new_trip_file(request, route_id):
     }
 
     return render(request,'trips/new/new_trip_file_upload.html', context)
+
+@ensure_csrf_cookie
+def new_trip_api(request):
+    if not request.user.username:
+        return JsonResponse({'Erro': 'Não autorizado' }, status=403)
+
+    if request.method == 'POST':
+
+        route = Routes.objects.get(route_id = int(request.POST['route']))
+
+        # trip = Trips (
+        #     route = route,
+        #     trip_id = request.POST['trip_id'],
+        #     service_id = request.POST['service_id'],
+        #     trip_short_name = request.POST['trip_short_name'],
+        #     trip_headsign = request.POST['trip_headsign'],
+        #     shape_id =request.POST['shape_id']
+        # ).save()
+
+        return JsonResponse({
+            'Sucesso': 'Trip criada com sucesso!'
+        })
+
+    return JsonResponse({ 'Erro': 'Aceitamos apenas POST' })

@@ -2,12 +2,16 @@
 
 
 <div class="content">
+    
+    <div class="content text-muted text-center">
+        Trajeto sendo criado. Não feche esta tela e aguarde até a confirmação.
+    </div>
 
     <div id="progresso-criacao-shapes" class="card row"> 
 
         <div class="col-2"></div>
         <div class="col-2 text-center">
-            <img src="{% static 'img/loading_green.gif' %}" width="50" height="50" class="float-center">
+            <img id="imagem-progresso-criacao-shapes" src="{% static 'img/loading_green.gif' %}" width="50" height="50" class="float-center">
         </div>
         <div class="col-6 text-center">
             <h4> Criando o Shape do Trajeto </h4>
@@ -16,10 +20,10 @@
 
     </div>
 
-    <div id="progresso-criacao-trip" class="card row"> 
+    <div id="progresso-criacao-trip" class="card row d-none"> 
         <div class="col-2"></div>
         <div class="col-2 text-center">
-            <img src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
+            <img id="imagem-progresso-criacao-trip" src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
         </div>
         <div class="col-6 text-center">
             <h4> Cadastrando os dados do Trajeto </h4>
@@ -27,7 +31,7 @@
         <div class="col-2"></div>
     </div>
     
-    <div id="progresso-criacao-stop-times" class="card row"> 
+    <div id="progresso-criacao-stop-times" class="card row d-none"> 
         <div class="col-2"></div>
         <div class="col-2 text-center">
             <img src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
@@ -38,7 +42,7 @@
         <div class="col-2"></div>
     </div>   
 
-    <div id="botoes-navegacao" class="card text-center"> 
+    <div id="botoes-navegacao" class="card text-center d-none"> 
         <h4 class=""> Trip criada com sucesso! </h4>
         <br>
 
