@@ -114,11 +114,10 @@ function salvarTudo() {
 
     let shapes = $('#data-shapes').text();
 
-    console.log('Enviando Shapes');
+    // console.log('Enviando Shapes');
 
     enviarRequestShapes(shapes, (data) => {
         setTimeout(() => {
-
             $('#imagem-progresso-criacao-shapes').attr("src", SUCCESS_IMG);
             $('#progresso-criacao-trip').removeClass(CLASSE_HIDE);
 
@@ -136,6 +135,20 @@ function salvarTudo() {
                 setTimeout(() => {
                     $('#imagem-progresso-criacao-trip').attr("src", SUCCESS_IMG);
                     $('#progresso-criacao-stop-times').removeClass(CLASSE_HIDE);
+
+                    stops = "[";
+                    $(".data-stop").each(function (index, element) {
+                        stops = stops + ($(this).text().substring(0, $(this).text().length - 1)) + ', "trip_id": "' + $('#id_trip_id').val() + '"} ,';
+                    });
+                    stops = stops.substring(0, stops.length - 1)
+                    stops += "]";
+
+                    enviarRequestStopTimes(stops, (data) => {
+                        setTimeout(() => {
+                            $('#imagem-progresso-criacao-stop-times').attr("src", SUCCESS_IMG);
+                            $('#botoes-navegacao').removeClass(CLASSE_HIDE);
+                        }, 2000);
+                    });
                     
                 }, 2000);
             });

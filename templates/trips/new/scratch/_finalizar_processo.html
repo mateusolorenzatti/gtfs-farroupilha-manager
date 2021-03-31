@@ -34,7 +34,7 @@
     <div id="progresso-criacao-stop-times" class="card row d-none"> 
         <div class="col-2"></div>
         <div class="col-2 text-center">
-            <img src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
+            <img id="imagem-progresso-criacao-stop-times" src="{% static 'img/loading_green.gif' %}"  width="50" height="50" class="float-center">
         </div>
         <div class="col-6 text-center">
             <h4> Criando a grade de horários </h4>
@@ -43,13 +43,13 @@
     </div>   
 
     <div id="botoes-navegacao" class="card text-center d-none"> 
-        <h4 class=""> Trip criada com sucesso! </h4>
+        <h4 class=""> Trip criada com sucesso! :) </h4>
         <br>
 
-        <a class="btn btn-success text-white">
+        <a class="btn btn-success text-white" href="{% url 'dashboard' %}">
             Voltar para a Home
         </a>
-        <a class="btn btn-success text-white">
+        <a class="btn btn-success text-white" href="{% url 'trips:show_trip' trip.trip_id %}">
             Visualizar a nova Trip
         </a>
     </div>  

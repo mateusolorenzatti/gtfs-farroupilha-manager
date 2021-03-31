@@ -17,7 +17,6 @@ def new_shape_list_api(request):
 
         shapes = json.loads(shapes_json)
 
-        """
         for shape in shapes:
             Shapes(
                shape_pt_lon = shape['shape_pt_lon'],
@@ -25,8 +24,7 @@ def new_shape_list_api(request):
                shape_pt_sequence = shape['shape_pt_sequence'],
                shape_id = shape['shape_id']
             ).save()
-        """
-        
+
         return JsonResponse({
             'Sucesso': 'Shapes criadas com sucesso!'
         })

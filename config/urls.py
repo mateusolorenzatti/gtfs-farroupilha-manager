@@ -20,10 +20,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 urlpatterns = [
+    
     path('', include('apps.gtfs.urls'), name='gtfs'),
+
     path('routes/', include('apps.routes.urls'), name='routes'),
     path('trips/', include('apps.trips.urls'), name='trips'),
     path('stops/', include('apps.stops.urls'), name='stops'),
     path('shapes/', include('apps.shapes.urls'), name='shapes'),
+    path('stop_times/', include('apps.stop_times.urls'), name='stop_times'),
+
     path('admin/', admin.site.urls),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

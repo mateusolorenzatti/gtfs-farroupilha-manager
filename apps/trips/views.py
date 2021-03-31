@@ -116,14 +116,14 @@ def new_trip_api(request):
 
         route = Routes.objects.get(route_id = int(request.POST['route']))
 
-        # trip = Trips (
-        #     route = route,
-        #     trip_id = request.POST['trip_id'],
-        #     service_id = request.POST['service_id'],
-        #     trip_short_name = request.POST['trip_short_name'],
-        #     trip_headsign = request.POST['trip_headsign'],
-        #     shape_id =request.POST['shape_id']
-        # ).save()
+        trip = Trips (
+            route = route,
+            trip_id = request.POST['trip_id'],
+            service_id = request.POST['service_id'],
+            trip_short_name = request.POST['trip_short_name'],
+            trip_headsign = request.POST['trip_headsign'],
+            shape_id =request.POST['shape_id']
+        ).save()
 
         return JsonResponse({
             'Sucesso': 'Trip criada com sucesso!'

@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div id="data-stop-{{stop.stop_sequence}}" class="json-data d-none">
+    <div id="data-stop-{{stop.stop_sequence}}" class="data-stop d-none">
 
     </div>
 </div>
@@ -108,11 +108,11 @@
 
         let dados = enviarRequestNovaParada(dadosParada, {{ stop.stop_sequence }},
             (data) => {
-                console.log(data);
 
                 novoObj = {
                     'stop_id': data['stop']['stop_id'],
-                    'stop_sequence': {{ stop.stop_sequence }}
+                    'stop_sequence': {{ stop.stop_sequence }},
+                    'arrival_time': $('#arrival-time-{{ stop.stop_sequence }}').text().trim()
                 }
 
                 concluiStop({{stop.stop_sequence}}, novoObj, data['stop']['stop_id'] + ' - ' + data['stop']['stop_name']);
@@ -131,7 +131,8 @@
 
         novoObj = {
             'stop_id': stop.split(' - ')[0],
-            'stop_sequence': {{ stop.stop_sequence }}
+            'stop_sequence': {{ stop.stop_sequence }},
+            'arrival_time': $('#arrival-time-{{ stop.stop_sequence }}').text().trim()
         }
 
         concluiStop({{stop.stop_sequence}}, novoObj, stop);

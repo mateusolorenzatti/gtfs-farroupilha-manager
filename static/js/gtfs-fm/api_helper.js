@@ -67,3 +67,19 @@ function enviarRequestTrip(trip, sucesso){
                     sucesso(data);
                 });
 }
+
+function enviarRequestStopTimes(stop_times, sucesso){
+    
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
+    return $.post("/stop_times/api/new_list", {'stop_times': stop_times } )
+                .done(function(data) {
+                    sucesso(data);
+                });
+}
